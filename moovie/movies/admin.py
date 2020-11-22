@@ -1,15 +1,16 @@
 from django.contrib import admin
 
-from .models import Movie,Cast,Director
+from .models import Movie, Actor, Director
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['title', 'language', 'vote_average']
+    list_display = ['title', 'language', 'vote_average',
+     'genres', 'release_date', 'revenue', 'runtime']
 
-@admin.register(Cast)
-class CastAdmin(admin.ModelAdmin):
-    list_display = ['name', 'gender', 'movie_id']
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'movie_id']
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'gender', 'movie_id']
+    list_display = ['name', 'movie_id']

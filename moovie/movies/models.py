@@ -15,16 +15,12 @@ class Movie(models.Model):
     vote_average = models.FloatField()
     vote_count = models.PositiveIntegerField()
 
-class Cast(models.Model):
-    SEX_CHOICES = [(0,'Male'), (1,'Female')]
+class Actor(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=70)
-    gender = models.BooleanField(choices=SEX_CHOICES)
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie_id = models.PositiveIntegerField()
 
 class Director(models.Model):
-    SEX_CHOICES = [(0,'Male'), (1,'Female')]
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=70)
-    gender = models.BooleanField(choices=SEX_CHOICES)
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie_id = models.PositiveIntegerField()

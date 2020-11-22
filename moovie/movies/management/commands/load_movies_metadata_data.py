@@ -1,6 +1,6 @@
 from csv import DictReader
 from django.core.management import BaseCommand
-from movies.models import Movie
+from movies.models import Movie, Actor, Director
 
 
 ALREADY_LOADED_ERROR_MESSAGE = """
@@ -14,11 +14,11 @@ class Command(BaseCommand):
     # Show this when the user types help
     help = """
     Loads data from movies_metadata.csv into our Movie model
-    And loads data from credits.csv into our Cast,Director model
+    And loads data from credits.csv into our Actor,Director model
     """
 
     def handle(self, *args, **options):
-        if Movie.objects.exists():
+        if Movie.objects.exists() or Actor.objects.exists() or Director.objects.exists():
             print('Movie data already loaded...exiting.')
             print(ALREADY_LOADED_ERROR_MESSAGE)
             return
@@ -57,5 +57,26 @@ class Command(BaseCommand):
             movie.vote_average = row['vote_average']
             movie.vote_count = row['vote_count']
             movie.save()
-
+        print("Loading Actor, Director data for Credits available in credits.csv")
+        for row in DictReader(open('./credits.csv')):
+            # import Actors
+            actors_raw = row['cast']
+            actors_list = eval(actors_raw)
+            for each_actor in actors_list:
+                actor = Actor()
+                actor.id = each_actor['id']
+                actor.name = each_actor['name']
+                actor.movie_id = row['id']
+                actor.save()
+            # import Directors
+            crews_raw = row['crew']
+            crews_list = eval(crews_raw)
+            for crew in crews_list:
+                if crew['job'] == 'Director' :
+                    director = Director()
+                    director.id = crew['id']
+                    director.name = crew['name']
+                    director.movie_id = row['id']
+                    director.save()
+            
             
