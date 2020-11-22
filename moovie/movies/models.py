@@ -14,19 +14,17 @@ class Movie(models.Model):
     runtime = models.FloatField()
     vote_average = models.FloatField()
     vote_count = models.PositiveIntegerField()
-    casts = models.ManyToManyField('Cast')
-    directors = models.ManyToManyField('Director')
 
 class Cast(models.Model):
     SEX_CHOICES = [(0,'Male'), (1,'Female')]
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=70)
     gender = models.BooleanField(choices=SEX_CHOICES)
-    movie_id = models.PositiveIntegerField()
+    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
 class Director(models.Model):
     SEX_CHOICES = [(0,'Male'), (1,'Female')]
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=70)
     gender = models.BooleanField(choices=SEX_CHOICES)
-    movie_id = models.PositiveIntegerField()
+    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
