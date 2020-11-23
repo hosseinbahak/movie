@@ -58,6 +58,7 @@ class Command(BaseCommand):
             movie.vote_count = row['vote_count']
             movie.save()
         print("Loading Actor, Director data for Credits available in credits.csv")
+        SEX_CHOICES = {1:'F', 2:'M', 0:''}
         for row in DictReader(open('./credits.csv')):
             # import Actors
             actors_raw = row['cast']
@@ -66,6 +67,8 @@ class Command(BaseCommand):
                 actor = Actor()
                 actor.id = each_actor['id']
                 actor.name = each_actor['name']
+                gender_raw = each_actor['gender']
+                actor.gender = SEX_CHOICES[gender_raw]
                 actor.movie_id = row['id']
                 actor.save()
             # import Directors
@@ -76,6 +79,8 @@ class Command(BaseCommand):
                     director = Director()
                     director.id = crew['id']
                     director.name = crew['name']
+                    gender_raw = crew['gender']
+                    director.gender = SEX_CHOICES[gender_raw]
                     director.movie_id = row['id']
                     director.save()
             

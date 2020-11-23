@@ -16,11 +16,15 @@ class Movie(models.Model):
     vote_count = models.PositiveIntegerField()
 
 class Actor(models.Model):
+    SEX_CHOICES = [('M', 'Male'), ('F', 'Female')]
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=70)
+    gender = models.CharField(choices=SEX_CHOICES, max_length=1, blank=True)
     movie_id = models.PositiveIntegerField()
 
 class Director(models.Model):
+    SEX_CHOICES = [('M', 'Male'), ('F', 'Female')]
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=70)
+    gender = models.CharField(choices=SEX_CHOICES, max_length=1, blank=True)
     movie_id = models.PositiveIntegerField()
