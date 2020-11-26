@@ -1,6 +1,6 @@
 from csv import DictReader
 from django.core.management import BaseCommand
-from movies.models import Movie, Actor, Director
+from movies.models import Movie, Actor, Director, Writer
 
 
 ALREADY_LOADED_ERROR_MESSAGE = """
@@ -18,7 +18,7 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        if Movie.objects.exists() or Actor.objects.exists() or Director.objects.exists():
+        if Movie.objects.exists() or Actor.objects.exists() or Director.objects.exists() or Writer.objects.exists():
             print('Movie data already loaded...exiting.')
             print(ALREADY_LOADED_ERROR_MESSAGE)
             return
@@ -56,8 +56,9 @@ class Command(BaseCommand):
             movie.runtime = row['runtime']
             movie.vote_average = row['vote_average']
             movie.vote_count = row['vote_count']
+            movie.poster = row['poster_path']
             movie.save()
-        print("Loading Actor, Director data for Credits available in credits.csv")
+        print("Loading Actor, Director, Writer data for Credits available in credits.csv")
         SEX_CHOICES = {1:'F', 2:'M', 0:''}
         for row in DictReader(open('./credits.csv')):
             # import Actors
@@ -65,23 +66,37 @@ class Command(BaseCommand):
             actors_list = eval(actors_raw)
             for each_actor in actors_list:
                 actor = Actor()
-                actor.id = each_actor['id']
+                actor.actor_id = each_actor['id']
                 actor.name = each_actor['name']
                 gender_raw = each_actor['gender']
                 actor.gender = SEX_CHOICES[gender_raw]
                 actor.movie_id = row['id']
+                if each_actor['profile_path']: actor.pic = each_actor['profile_path']
                 actor.save()
-            # import Directors
+            # import Directors, Writers from crew
             crews_raw = row['crew']
             crews_list = eval(crews_raw)
+            # get only 1 writer
+            flag_one_writer = False
             for crew in crews_list:
+                # import Director
                 if crew['job'] == 'Director' :
                     director = Director()
-                    director.id = crew['id']
+                    director.director_id = crew['id']
                     director.name = crew['name']
                     gender_raw = crew['gender']
                     director.gender = SEX_CHOICES[gender_raw]
                     director.movie_id = row['id']
                     director.save()
+                # import Writer
+                elif flag_one_writer == False and crew['department'] == 'Writing' :
+                    writer = Writer()
+                    writer.writer_id = crew['id']
+                    writer.name = crew['name']
+                    gender_raw = crew['gender']
+                    writer.gender = SEX_CHOICES[gender_raw]
+                    writer.movie_id = row['id']
+                    writer.save()
+                    flag_one_writer = True
             
             
