@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Movie, Actor, Director
+from .models import Movie, Actor, Director, Writer
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
@@ -13,4 +13,8 @@ class ActorAdmin(admin.ModelAdmin):
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'movie_id']
+
+@admin.register(Writer)
+class WriterAdmin(admin.ModelAdmin):
     list_display = ['name', 'movie_id']
