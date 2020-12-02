@@ -8,3 +8,6 @@ class ActorsSerializer(serializers.Serializer):
     pic = serializers.CharField(max_length=50)
     movie_ids = serializers.CharField(max_length=50)
 
+class GenresSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    movie_ids = serializers.ListField()
