@@ -65,13 +65,17 @@ class Command(BaseCommand):
             actors_raw = row['cast']
             actors_list = eval(actors_raw)
             for each_actor in actors_list:
-                actor = Actor()
-                actor.actor_id = each_actor['id']
-                actor.name = each_actor['name']
-                gender_raw = each_actor['gender']
-                actor.gender = SEX_CHOICES[gender_raw]
-                actor.movie_id = row['id']
-                if each_actor['profile_path']: actor.pic = each_actor['profile_path']
+                try:
+                    actor = Actor.objects.get(actor_id=each_actor['id'])
+                    actor.movie_ids = actor.movie_ids + ',' + row['id']
+                except:
+                    actor = Actor()
+                    actor.actor_id = each_actor['id']
+                    actor.name = each_actor['name']
+                    gender_raw = each_actor['gender']
+                    actor.gender = SEX_CHOICES[gender_raw]
+                    actor.movie_ids = row['id']
+                    if each_actor['profile_path']: actor.pic = each_actor['profile_path']
                 actor.save()
             # import Directors, Writers from crew
             crews_raw = row['crew']
@@ -81,21 +85,29 @@ class Command(BaseCommand):
             for crew in crews_list:
                 # import Director
                 if crew['job'] == 'Director' :
-                    director = Director()
-                    director.director_id = crew['id']
-                    director.name = crew['name']
-                    gender_raw = crew['gender']
-                    director.gender = SEX_CHOICES[gender_raw]
-                    director.movie_id = row['id']
+                    try:
+                        director = Director.objects.get(actor_id=crew['id'])
+                        director.movie_ids = director.movie_ids + ',' + row['id']
+                    except:
+                        director = Director()
+                        director.director_id = crew['id']
+                        director.name = crew['name']
+                        gender_raw = crew['gender']
+                        director.gender = SEX_CHOICES[gender_raw]
+                        director.movie_ids = row['id']
                     director.save()
                 # import Writer
                 elif flag_one_writer == False and crew['department'] == 'Writing' :
-                    writer = Writer()
-                    writer.writer_id = crew['id']
-                    writer.name = crew['name']
-                    gender_raw = crew['gender']
-                    writer.gender = SEX_CHOICES[gender_raw]
-                    writer.movie_id = row['id']
+                    try:
+                        writer = Writer.objects.get(actor_id=crew['id'])
+                        writer.movie_ids = writer.movie_ids + ',' + row['id']
+                    except:
+                        writer = Writer()
+                        writer.writer_id = crew['id']
+                        writer.name = crew['name']
+                        gender_raw = crew['gender']
+                        writer.gender = SEX_CHOICES[gender_raw]
+                        writer.movie_ids = row['id']
                     writer.save()
                     flag_one_writer = True
             

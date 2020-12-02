@@ -21,7 +21,7 @@ class Actor(models.Model):
     actor_id = models.PositiveIntegerField()
     name = models.CharField(max_length=70)
     gender = models.CharField(choices=SEX_CHOICES, max_length=1, blank=True)
-    movie_id = models.PositiveIntegerField()
+    movie_ids = models.CharField(max_length=50)
     pic = models.CharField(max_length=50)
 
 class Director(models.Model):
@@ -29,11 +29,11 @@ class Director(models.Model):
     director_id = models.PositiveIntegerField()
     name = models.CharField(max_length=70)
     gender = models.CharField(choices=SEX_CHOICES, max_length=1, blank=True)
-    movie_id = models.PositiveIntegerField()
+    movie_ids = models.CharField(max_length=50)
 
 class Writer(models.Model):
     SEX_CHOICES = [('M', 'Male'), ('F', 'Female')]
     writer_id = models.PositiveIntegerField()
     name = models.CharField(max_length=70)
     gender = models.CharField(choices=SEX_CHOICES, max_length=1, blank=True)
-    movie_id = models.PositiveIntegerField()
+    movie_ids = models.CharField(max_length=50)

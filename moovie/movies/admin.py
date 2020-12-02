@@ -9,12 +9,12 @@ class MovieAdmin(admin.ModelAdmin):
 
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'movie_id']
+    list_display = ['name', 'movie_ids']
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'movie_id']
+    list_display = ['name', 'movie_ids']
 
 @admin.register(Writer)
 class WriterAdmin(admin.ModelAdmin):
-    list_display = ['name', 'movie_id']
+    list_display = ['name', 'movie_ids']
