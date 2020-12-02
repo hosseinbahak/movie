@@ -8,11 +8,13 @@ from .serializers import ActorsSerializer, GenresSerializer
 def all_actors(requst):
     data = Actor.objects.all()
     result = ActorsSerializer(data, many=True).data
+    result.insert(0,{'number_of_actors':Actor.objects.count()})
     return Response(result)
     
 @api_view(['GET'])
 def all_genres(requst):
     movies = Movie.objects.all()
+    number_of_genres = 0
     data = []
     for movie in movies:
         for genre in movie.genres.split(','):
@@ -21,7 +23,9 @@ def all_genres(requst):
                     available_genre['movie_ids'].append(movie.id)
                     break
             else:
+                number_of_genres += 1
                 dic = {'name':genre, 'movie_ids':[movie.id]}
                 data.append(dic)
     result = GenresSerializer(data, many=True).data
+    result.insert(0,{'number_of_genres':number_of_genres})
     return Response(result)
