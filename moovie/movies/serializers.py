@@ -11,3 +11,19 @@ class ActorsSerializer(serializers.Serializer):
 class GenresSerializer(serializers.Serializer):
     name = serializers.CharField()
     movie_ids = serializers.ListField()
+
+class MovieSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    title = serializers.CharField(max_length=100)
+    budget = serializers.PositiveIntegerField()
+    genres = serializers.TextField(max_length=50)
+    language = serializers.CharField(max_length=2)
+    overview = serializers.TextField(max_length=200)
+    companies = serializers.TextField(max_length=70)
+    countries = serializers.TextField(max_length=70)
+    release_date = serializers.DateField()
+    revenue = serializers.PositiveIntegerField()
+    runtime = serializers.FloatField()
+    vote_average = serializers.FloatField()
+    vote_count = serializers.PositiveIntegerField()
+    poster = serializers.CharField(max_length=50)
