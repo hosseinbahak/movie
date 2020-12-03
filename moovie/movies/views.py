@@ -8,7 +8,6 @@ from .serializers import *
 def all_actors(request):
     data = Actor.objects.all()
     result = ActorsSerializer(data, many=True).data
-    result.insert(0,{'number_of_actors':Actor.objects.count()})
     return Response(result)
     
 @api_view(['GET'])
@@ -27,13 +26,12 @@ def all_genres(request):
                 dic = {'name':genre, 'movie_ids':[movie.id]}
                 data.append(dic)
     result = GenresSerializer(data, many=True).data
-    result.insert(0,{'number_of_genres':number_of_genres})
     return Response(result)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def movie_details(request):
     movie_id = request.POST['movie_id']
-    movie_info = Movie.objects.filter(id__id = movie_id).get()
+    movie_info = Movie.objects.filter(id = movie_id)
     result = MovieSerializer(movie_info, many=True).data
     return Response(result)
     
