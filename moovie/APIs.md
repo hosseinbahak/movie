@@ -109,13 +109,26 @@ Example :
 ```
 ## /api/Movie/
 - GET : returns a json
-- Input: movie id
+- Input: movie_id
 - Output : movie details
 - Example :
 ```json
 [
-   {
-      "id":862,"title":"Toy Story","budget":30000000,"genres":"Animation,Comedy,Family","language":"en","overview":"Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate Buzz and Woody from their owner, the duo eventually learns to put aside their differences.","companies":"Pixar Animation Studios","countries":"United States of America","release_date":"1995-10-30","revenue":373554033,"runtime":81.0,"vote_average":7.7,"vote_count":5415,"poster":"/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"
-   }
+    {
+        "id": 862,
+        "title": "Toy Story",
+        "budget": 30000000,
+        "genres": "Animation,Comedy,Family",
+        "language": "en",
+        "overview": "Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate Buzz and Woody from their owner, the duo eventually learns to put aside their differences.",
+        "companies": "Pixar Animation Studios",
+        "countries": "United States of America",
+        "release_date": "1995-10-30",
+        "revenue": 373554033,
+        "runtime": 81.0,
+        "vote_average": 7.7,
+        "vote_count": 5415,
+        "poster": "/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"
+    }
 ]
 ```
