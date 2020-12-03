@@ -11,6 +11,7 @@ class ActorsSerializer(serializers.Serializer):
 class GenresSerializer(serializers.Serializer):
     name = serializers.CharField()
     movie_ids = serializers.ListField()
+    url = serializers.URLField()
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField()
