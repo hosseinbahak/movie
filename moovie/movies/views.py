@@ -3,6 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from random import randint
 from .models import *
 from .serializers import *
 
@@ -64,3 +65,11 @@ def movie_details(request):
     result = MovieSerializer(movie_info, many=True).data
     return Response(result)
     
+@api_view(['GET'])
+def random(request):
+    all_ids = Movie.objects.raw('SELECT id from movies_movie')
+    data = {'movie_ids':[]}
+    for _ in range(10):
+        data['movie_ids'].append(all_ids[randint(0, len(all_ids) - 1)].id)
+    result = RandomSerializer(data).data
+    return Response(result)
