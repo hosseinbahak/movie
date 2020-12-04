@@ -72,7 +72,7 @@ def all_genres(request, which_genre):
         else:
             raise Http404('genre not found')
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def movie_details(request):
 
     movie_id = request.GET['movie_id']
