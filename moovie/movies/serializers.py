@@ -27,3 +27,8 @@ class MovieSerializer(serializers.Serializer):
     vote_average = serializers.FloatField()
     vote_count = serializers.IntegerField()
     poster = serializers.CharField(max_length=50)
+
+
+class ReleaseDateSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    movie_ids = serializers.ListField()

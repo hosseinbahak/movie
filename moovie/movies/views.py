@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.http import JsonResponse
 from .models import *
 from .serializers import *
+from json import JSONEncoder
+from django.http import JsonResponse
 
 @api_view(['GET'])
 def all_actors(request):
@@ -32,8 +35,29 @@ def all_genres(request):
 
 @api_view(['GET'])
 def movie_details(request):
-    movie_id = request.POST['movie_id']
-    movie_info = Movie.objects.filter(id__id = movie_id).get()
-    result = MovieSerializer(movie_info, many=True).data
-    return Response(result)
-    
+    movie_id = request.GET['movie_id']
+  
+    try:
+        movie_info = Movie.objects.filter(id = movie_id ).get()
+        data = MovieSerializer(movie_info).data
+        return Response(data)    
+    except:
+        return JsonResponse({
+        'status' : 0 ,
+        }, encoder=JSONEncoder)
+        
+#it gets top 20 movies that have most rate        
+@api_view(['GET'])
+def top_rated(request):
+    movie_info = Movie.objects.order_by('-vote_average')[:20]
+    data = MovieSerializer(movie_info, many=True).data
+    return Response(data)
+
+#it gets top 20 movies sorted by last release
+@api_view(['GET'])
+def release_date(request):
+    movie_info = Movie.objects.order_by('-release_date')[:20]
+    data = MovieSerializer(movie_info, many=True).data
+    return Response(data)
+
+  

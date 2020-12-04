@@ -6,5 +6,7 @@ urlpatterns = [
     url(r'^api/Actors/', views.all_actors),
     url(r'^api/Genres/', views.all_genres),
     url(r'^api/Movie/', views.movie_details, name='movie_detail'),
+    url(r'^api/TopRated/', views.top_rated, name='top_rated'),
+    url(r'^api/ReleaseDate/', views.release_date, name='release_date'),
     
 ]
