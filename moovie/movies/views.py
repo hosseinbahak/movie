@@ -2,12 +2,12 @@ from django.http import Http404
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-<<<<<<< HEAD
+
 from django.http import JsonResponse
-=======
+
 from rest_framework.reverse import reverse
 from random import randint
->>>>>>> 7a20713b774d6722ff70574930d2ecf211ddeb2c
+
 from .models import *
 from .serializers import *
 from json import JSONEncoder
@@ -74,7 +74,7 @@ def all_genres(request, which_genre):
 
 @api_view(['GET', 'POST'])
 def movie_details(request):
-<<<<<<< HEAD
+
     movie_id = request.GET['movie_id']
   
     try:
@@ -100,8 +100,7 @@ def release_date(request):
     data = MovieSerializer(movie_info, many=True).data
     return Response(data)
 
-  
-=======
+
     movie_id = request.POST['movie_id']
     movie_info = Movie.objects.filter(id = movie_id)
     result = MovieSerializer(movie_info, many=True).data
@@ -117,4 +116,3 @@ def random(request):
         data['movie_ids'].append(all_ids[randint(0, len(all_ids) - 1)].id)
     result = RandomSerializer(data).data
     return Response(result)
->>>>>>> 7a20713b774d6722ff70574930d2ecf211ddeb2c
