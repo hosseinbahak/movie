@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseServerError
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -13,6 +13,12 @@ from .serializers import *
 from json import JSONEncoder
 from django.http import JsonResponse
 
+def check_DB():
+    if Movie.objects.exists() and Actor.objects.exists() and Director.objects.exists() and Writer.objects.exists():
+        return True
+    else:
+        return False
+
 @api_view(['GET'])
 def all_actors(request, actor_id):
     # returns only one Actor
@@ -26,6 +32,9 @@ def all_actors(request, actor_id):
             raise Http404('actor not found')
     # returns all the Actors
     else:
+        # if data base is not loaded then return 500 Error
+        if not check_DB():
+            return HttpResponseServerError('Database is not loaded !')
         data = Actor.objects.all()
         result = ActorsSerializer(data, many=True).data
         # add url to each Actor
@@ -37,6 +46,9 @@ def all_actors(request, actor_id):
 @api_view(['GET'])
 def all_genres(request, which_genre):
     if not which_genre:
+        # if data base is not loaded then return 500 Error
+        if not check_DB():
+            return HttpResponseServerError('Database is not loaded !')
         # returns all genres
         movies = Movie.objects.all()
         data = []
@@ -108,6 +120,9 @@ def release_date(request):
     
 @api_view(['GET'])
 def random(request):
+    # if data base is not loaded then return 500 Error
+    if not check_DB():
+        return HttpResponseServerError('Database is not loaded !')
     # bring all ids from movies DB
     all_ids = Movie.objects.raw('SELECT id from movies_movie')
     data = {'movie_ids':[]}

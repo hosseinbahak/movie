@@ -6,7 +6,7 @@ class ActorsSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=70)
     gender = serializers.CharField(max_length=1)
     pic = serializers.CharField(max_length=50)
-    movie_ids = serializers.CharField(max_length=50)
+    movie_ids = serializers.CharField()
 
 class GenresSerializer(serializers.Serializer):
     name = serializers.CharField()
@@ -28,3 +28,6 @@ class MovieSerializer(serializers.Serializer):
     vote_average = serializers.FloatField()
     vote_count = serializers.IntegerField()
     poster = serializers.CharField(max_length=50)
+
+class RandomSerializer(serializers.Serializer):
+    movie_ids = serializers.ListField()
