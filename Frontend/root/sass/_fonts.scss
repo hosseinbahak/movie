@@ -1,0 +1,21 @@
+@font-face {
+    font-family: Sans;
+    src: url(../fonts/SourceSansPro-Regular.ttf);
+    font-weight: 400;
+}
+@font-face {
+    font-family: Sans;
+    src: url(../fonts/SourceSansPro-SemiBold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'moovie';
+    src:  url('../fonts/moovie.eot?n1cpfs');
+    src:  url('../fonts/moovie.eot?n1cpfs#iefix') format('embedded-opentype'),
+      url('../fonts/moovie.ttf?n1cpfs') format('truetype'),
+      url('../fonts/moovie.woff?n1cpfs') format('woff'),
+      url('../fonts/moovie.svg?n1cpfs#moovie') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }

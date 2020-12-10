@@ -1,0 +1,38 @@
+
+i.moovie {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'moovie' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .moovie-keyboard_arrow_down:before {
+    content: "\e902";
+  }
+  .moovie-arrow-up:before {
+    content: "\e901";
+  }
+  .moovie-search:before {
+    content: "\e900";
+  }
+  .moovie-magnifier:before {
+    content: "\e900";
+  }
+  .moovie-magnifying-glass:before {
+    content: "\e900";
+  }
+  .moovie-inspect:before {
+    content: "\e900";
+  }
+  .moovie-find:before {
+    content: "\e900";
+  }
+  
