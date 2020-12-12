@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^api/TopRated/', views.top_rated, name='top_rated'),
     url(r'^api/ReleaseDate/', views.release_date, name='release_date'),
     url(r'^api/Random/', views.random, name='random'),
+    url(r'^api/Search/', views.search, name='search'),
     url(r'', views.home, name='home'),
 
 ]

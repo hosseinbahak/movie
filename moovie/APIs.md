@@ -1,39 +1,3 @@
-<<<<<<< HEAD
-/api/Actors/
-GET, returns a json
- 
- output: ???
-
-
-/api/Genres/
-GET, returns a json
- 
- output: ???
-  
-
- /api/Movie/
-GET, returns a json
- 
- input: http://127.0.0.1:8000/api/Movie/?movie_id = ???
- output: movie details that contains:
-    id, title, budget, genres, language, overview, companies, countries, release_date, revenue, runtime, vote_average, vote_count, poster
-
-
- /api/ReleaseDate/
-GET, returns a json
- 
- input: -
- output: movie details of top 20 movies sorted by last release
-
-
-/api/TopRated/
-GET, returns a json
- 
- input: -
- output: movie details of top 20 movies sorted by most rate
-
-
-=======
 # Readme for all APIs
 This is a readme for APIs.
 ## /api/Actors/
@@ -65,7 +29,7 @@ if 'gender'  == 'M' then : actor is Male
 
 if 'gender'  == 'F' then : actor is Female
 
-'movie_ids' : all movie ids from Actor
+'movie_ids' : all movie ids from that Actor
 
 'url' : a link to actor api with 'actor_id'
 
@@ -123,6 +87,7 @@ Example :
     "url": "http://127.0.0.1:8000/api/Genres/Drama"
 }
 ```
+
 ## /api/Random
 - GET : returns a json
 - Output : List of 10 random movie ids
@@ -143,6 +108,7 @@ Example :
     ]
 }
 ```
+
 ## /api/Movie/
 - GET : returns a json
 - Input: movie_id
@@ -168,4 +134,41 @@ Example :
     }
 ]
 ```
->>>>>>> 7a20713b774d6722ff70574930d2ecf211ddeb2c
+
+## /api/Search/
+- GET : returns a json
+- Input: search
+- Output : movie, actor, director, writer ids
+- Example :
+```json
+{
+    "movie_ids": [
+        {
+            "id": 45325
+        }
+    ],
+    "acotr_ids": [
+        {
+            "actor_id": 31
+        },
+        {
+            "actor_id": 3197
+        },
+        {
+            "actor_id": 119232
+        }
+    ],
+    "director_ids": [],
+    "writers_ids": []
+}
+```
+
+## /api/ReleaseDate/
+- GET : returns a json
+- Input: -
+- Output : movie details of top 20 movies sorted by last release
+
+## /api/TopRated/
+- GET : returns a json
+- Input: -
+- Output : movie details of top 20 movies sorted by most rate

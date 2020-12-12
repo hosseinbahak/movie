@@ -86,9 +86,7 @@ def all_genres(request, which_genre):
 
 @api_view(['GET'])
 def movie_details(request):
-
     movie_id = request.GET['movie_id']
-  
     try:
         movie_info = Movie.objects.filter(id = movie_id ).get()
         data = MovieSerializer(movie_info).data
@@ -130,6 +128,18 @@ def random(request):
     for _ in range(10):
         data['movie_ids'].append(all_ids[randint(0, len(all_ids) - 1)].id)
     result = RandomSerializer(data).data
+    return Response(result)
+
+@api_view(['GET'])
+def search(request):
+    name = request.GET['search']
+    queryset_movies = Movie.objects.filter(title__contains=name).values('id')
+    queryset_actors = Actor.objects.filter(name__contains=name).values('actor_id')
+    queryset_writers = Writer.objects.filter(name__contains=name).values('writer_id')
+    queryset_director = Director.objects.filter(name__contains=name).values('director_id')
+    data = {'movie_ids':queryset_movies, 'acotr_ids':queryset_actors,
+            'director_ids':queryset_director, 'writers_ids':queryset_writers}
+    result = SearchSerializer(data).data
     return Response(result)
 
 def home(request):
