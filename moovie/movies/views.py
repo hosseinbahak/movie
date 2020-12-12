@@ -131,3 +131,6 @@ def random(request):
         data['movie_ids'].append(all_ids[randint(0, len(all_ids) - 1)].id)
     result = RandomSerializer(data).data
     return Response(result)
+
+def home(request):
+    return render(request, 'index.html', {})
