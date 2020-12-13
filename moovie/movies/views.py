@@ -132,15 +132,23 @@ def random(request):
 
 @api_view(['GET'])
 def search(request):
+    if not check_DB():
+        return HttpResponseServerError('Database is not loaded !')
+    we_found_something = True
     name = request.GET['search']
     queryset_movies = Movie.objects.filter(title__contains=name).values('id')
     queryset_actors = Actor.objects.filter(name__contains=name).values('actor_id')
     queryset_writers = Writer.objects.filter(name__contains=name).values('writer_id')
     queryset_director = Director.objects.filter(name__contains=name).values('director_id')
-    data = {'movie_ids':queryset_movies, 'acotr_ids':queryset_actors,
-            'director_ids':queryset_director, 'writers_ids':queryset_writers}
-    result = SearchSerializer(data).data
-    return Response(result)
+    if queryset_movies.count() == 0 and queryset_actors.count() == 0 and queryset_writers.count() == 0 and queryset_director.count() == 0:
+        we_found_something = False
+    if we_found_something:
+        data = {'movie_ids':queryset_movies, 'acotr_ids':queryset_actors,
+                'director_ids':queryset_director, 'writers_ids':queryset_writers}
+        result = SearchSerializer(data).data
+        return Response(result)
+    else:
+        raise Http404("we could'nt find what you're looking for")
 
 def home(request):
     return render(request, 'index.html', {})
