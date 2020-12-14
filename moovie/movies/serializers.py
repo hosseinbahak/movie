@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Actor
 
+
 class ActorsSerializer(serializers.Serializer):
     actor_id = serializers.IntegerField()
     name = serializers.CharField(max_length=70)
@@ -8,10 +9,12 @@ class ActorsSerializer(serializers.Serializer):
     pic = serializers.CharField(max_length=50)
     movie_ids = serializers.CharField()
 
+
 class GenresSerializer(serializers.Serializer):
     name = serializers.CharField()
     movie_ids = serializers.ListField()
     url = serializers.URLField()
+
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -29,8 +32,10 @@ class MovieSerializer(serializers.Serializer):
     vote_count = serializers.IntegerField()
     poster = serializers.CharField(max_length=50)
 
+
 class RandomSerializer(serializers.Serializer):
     movie_ids = serializers.ListField()
+
 
 class SearchSerializer(serializers.Serializer):
     movie_ids = serializers.ListField()
