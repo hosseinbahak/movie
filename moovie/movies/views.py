@@ -118,15 +118,25 @@ def release_date(request):
     
 @api_view(['GET'])
 def random(request):
+    # how many random movies
+    NUMBERS = 10
     # if data base is not loaded then return 500 Error
     if not check_DB():
         return HttpResponseServerError('Database is not loaded !')
     # bring all ids from movies DB
-    all_ids = Movie.objects.raw('SELECT id from movies_movie')
+    all_ids = Movie.objects.all().values('id')
     data = {'movie_ids':[]}
-    # select 10 of them by random
-    for _ in range(10):
-        data['movie_ids'].append(all_ids[randint(0, len(all_ids) - 1)].id)
+    if len(all_ids) < NUMBERS:
+        for item in all_ids:
+            data['movie_ids'].append(item['id'])
+    else:
+        # select NUMBERS of them by random
+        c = 0
+        while c < NUMBERS:
+            random_int = randint(0, len(all_ids) - 1)
+            if all_ids[random_int]['id'] not in data['movie_ids']:
+                data['movie_ids'].append(all_ids[random_int]['id'])
+                c += 1
     result = RandomSerializer(data).data
     return Response(result)
 
@@ -140,6 +150,7 @@ def search(request):
     queryset_actors = Actor.objects.filter(name__contains=name).values('actor_id')
     queryset_writers = Writer.objects.filter(name__contains=name).values('writer_id')
     queryset_director = Director.objects.filter(name__contains=name).values('director_id')
+    # if nothing founds
     if queryset_movies.count() == 0 and queryset_actors.count() == 0 and queryset_writers.count() == 0 and queryset_director.count() == 0:
         we_found_something = False
     if we_found_something:
