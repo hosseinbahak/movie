@@ -89,8 +89,8 @@ Example :
 ## /api/Random
 
 - GET : returns a json
-- Input : num
-- Output : List of 10 random movie ids if num hasn't been sent, if you send num the num number of movies will be sent
+- Input : num (optional)
+- Output : List of 10 random movie ids if num hasn't been sent, if you send num=5 the 5 movie ids will be sent
 - Example :
 
 ```json
