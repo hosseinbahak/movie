@@ -1,4 +1,8 @@
 # SE2
-this web application introduce movies 
+The Moovie
 
+This web application introduces movies
 
+You can also look at our wiki page.
+
+[Wiki](https://github.com/hosseinbahak/SE2/wiki)
