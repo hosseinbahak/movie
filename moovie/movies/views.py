@@ -121,11 +121,14 @@ def release_date(request):
 
 @api_view(['GET'])
 def random(request):
-    # how many random movies
-    NUMBERS = 10
     # if data base is not loaded then return 500 Error
     if not check_DB():
         return HttpResponseServerError('Database is not loaded !')
+    # how many random movies
+    if 'num' in request.GET and request.GET['num'].isnumeric():
+        NUMBERS = int(request.GET['num'])
+    else:
+        NUMBERS = 10
     # bring all ids from movies DB
     all_ids = Movie.objects.all().values('id')
     data = {'movie_ids': []}

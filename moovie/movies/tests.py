@@ -23,6 +23,10 @@ class MovieWithoutDBTestCase(TestCase):
         response = self.client.get('/api/Random/')
         self.assertEqual(response.status_code, 500)
 
+    def test_random_api_with_num_without_data(self):
+        response = self.client.get('/api/Random/?num=5')
+        self.assertEqual(response.status_code, 500)
+
     def test_search_api_without_data(self):
         response = self.client.get('/api/Search/', data={'search': 'toy'})
         self.assertEqual(response.status_code, 500)
@@ -90,6 +94,9 @@ class MovieTestCase(TestCase):
         )
         response = self.client.get('/api/Actors/3')
         self.assertEqual(response.status_code, 404)
+        # returns all actors
+        response = self.client.get('/api/Actors/animate')
+        self.assertEqual(response.status_code, 200)
 
     def test_all_genres_api_with_loaded_data(self):
         response = self.client.get('/api/Genres/')
@@ -116,9 +123,21 @@ class MovieTestCase(TestCase):
         )
         response = self.client.get('/api/Genres/Ani')
         self.assertEqual(response.status_code, 404)
+        response = self.client.get('/api/Genres/3')
+        self.assertEqual(response.status_code, 404)
 
     def test_random_api_with_loaded_data(self):
         response = self.client.get('/api/Random/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(),
+                         {"movie_ids": [1]}
+                         )
+        response = self.client.get('/api/Random/?num=5')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(),
+                         {"movie_ids": [1]}
+                         )
+        response = self.client.get('/api/Random/?num=asd')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(),
                          {"movie_ids": [1]}
