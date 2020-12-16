@@ -93,10 +93,44 @@ def all_genres(request, which_genre):
 @api_view(['GET'])
 def movie_details(request):
     movie_id = request.GET['movie_id']
+    casts = Actor.objects.all()
+    directors = Director.objects.all()
+    casts_name = []
+    directors_name = []
+
+    for cast in casts :
+        if cast.movie_ids == movie_id:
+            casts_name.append(cast.name)
+
+    for director in directors :
+        if director.movie_ids == movie_id:
+            directors_name.append(director.name)
+    print(directors_name)
+    
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
-        data = MovieSerializer(movie_info).data
+        data = {
+            'id' : movie_id,
+            'title': movie_info.title,
+            'budget' : movie_info.budget,
+            'genres': movie_info.genres,
+            'casts' : casts_name,
+            'directors': directors_name,
+            'genres' : movie_info.genres,
+            'language': movie_info.language,
+            'overview' : movie_info.overview,
+            'companies': movie_info.companies,    
+            'countries' : movie_info.countries,
+            'release_date': movie_info.release_date,
+            'revenue' : movie_info.revenue,
+            'runtime': movie_info.runtime,
+            'vote_average' : movie_info.vote_average,
+            'vote_count': movie_info.vote_count,
+            'poster': movie_info.poster
+        }
+        data = MovieSerializer(data).data
         return Response(data)
+
     except:
         return JsonResponse({
             'status': 0,

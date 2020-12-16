@@ -19,6 +19,8 @@ class GenresSerializer(serializers.Serializer):
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     title = serializers.CharField(max_length=100)
+    casts = serializers.CharField(max_length=200)
+    directors = serializers.CharField(max_length=200)
     budget = serializers.IntegerField()
     genres = serializers.CharField(max_length=50)
     language = serializers.CharField(max_length=2)
