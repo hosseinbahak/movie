@@ -97,6 +97,7 @@ def movie_details(request):
     directors = Director.objects.all()
     casts_name = []
     directors_name = []
+    movie_poster_url = "https://image.tmdb.org/t/p/w500"
 
     for cast in casts :
         if cast.movie_ids == movie_id:
@@ -105,10 +106,12 @@ def movie_details(request):
     for director in directors :
         if director.movie_ids == movie_id:
             directors_name.append(director.name)
-    print(directors_name)
+    
     
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
+        movie_poster_url += movie_info.poster
+    
         data = {
             'id' : movie_id,
             'title': movie_info.title,
@@ -126,7 +129,7 @@ def movie_details(request):
             'runtime': movie_info.runtime,
             'vote_average' : movie_info.vote_average,
             'vote_count': movie_info.vote_count,
-            'poster': movie_info.poster
+            'poster': movie_poster_url
         }
         data = MovieSerializer(data).data
         return Response(data)
