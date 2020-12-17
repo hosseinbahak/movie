@@ -35,7 +35,7 @@ class MovieSerializer(serializers.Serializer):
     poster = serializers.CharField(max_length=50)
 
 
-class RandomSerializer(serializers.Serializer):
+class MoviesSerializer(serializers.Serializer):
     movie_ids = serializers.ListField()
 
 

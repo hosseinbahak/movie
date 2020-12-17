@@ -1,7 +1,7 @@
 from django.http import Http404, HttpResponseServerError
 from django.shortcuts import render
 from django.http import JsonResponse
-from json import JSONEncoder
+from json import JSONEncoder, loads
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -143,16 +143,22 @@ def movie_details(request):
 @api_view(['GET'])
 # it gets top 20 movies that have most rate
 def top_rated(request):
-    movie_info = Movie.objects.order_by('-vote_average')[:20]
-    data = MovieSerializer(movie_info, many=True).data
+    movie_info = Movie.objects.order_by('-vote_average').values('id')[:20]
+    data = {'movie_ids': []}
+    for movie in movie_info:
+        data['movie_ids'].append(movie['id'])
+    data = MoviesSerializer(data).data
     return Response(data)
 
 
 @api_view(['GET'])
 # it gets top 20 movies sorted by last release
 def release_date(request):
-    movie_info = Movie.objects.order_by('-release_date')[:20]
-    data = MovieSerializer(movie_info, many=True).data
+    movie_info = Movie.objects.order_by('-release_date').values('id')[:20]
+    data = {'movie_ids': []}
+    for movie in movie_info:
+        data['movie_ids'].append(movie['id'])
+    data = MoviesSerializer(data).data
     return Response(data)
 
 
@@ -180,7 +186,7 @@ def random(request):
             if all_ids[random_int]['id'] not in data['movie_ids']:
                 data['movie_ids'].append(all_ids[random_int]['id'])
                 c += 1
-    result = RandomSerializer(data).data
+    result = MoviesSerializer(data).data
     return Response(result)
 
 
@@ -206,7 +212,7 @@ def search(request):
         result = SearchSerializer(data).data
         return Response(result)
     else:
-        raise Http404("we could'nt find what you're looking for")
+        raise Http404("we couldn't find what you're looking for")
 
 
 def home(request):
