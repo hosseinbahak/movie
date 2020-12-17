@@ -15,7 +15,7 @@ This is a readme for APIs.
     "name": "Tom Hanks",
     "gender": "M",
     "pic": "/pQFoyx7rp09CJTAb932F2g8Nlho.jpg",
-    "movie_ids": "862",
+    "movie_ids": "862,345,1778",
     "url": "http://127.0.0.1:8000/api/Actors/31"
   },
   {
@@ -23,7 +23,7 @@ This is a readme for APIs.
     "name": "Tim Allen",
     "gender": "M",
     "pic": "/uX2xVf6pMmPepxnvFWyBtjexzgY.jpg",
-    "movie_ids": "862",
+    "movie_ids": "862,654,124,875",
     "url": "http://127.0.0.1:8000/api/Actors/12898"
   }
 ]
@@ -138,7 +138,7 @@ Example :
 ]
 ```
 
-## /api/Search/
+## /api/Search/?search=
 
 - GET : returns a json
 - Input: search
