@@ -100,12 +100,14 @@ def movie_details(request):
     movie_poster_url = "https://image.tmdb.org/t/p/w500"
 
     for cast in casts :
-        if cast.movie_ids == movie_id:
-            casts_name.append(cast.name)
+        for castMovieId in cast.movie_ids.split(','):
+            if castMovieId == movie_id:
+                casts_name.append(cast.name)
 
     for director in directors :
-        if director.movie_ids == movie_id:
-            directors_name.append(director.name)
+        for directorMovieId in director.movie_ids.split(','):
+            if directorMovieId == movie_id:
+                directors_name.append(director.name)
     
     
     try:
