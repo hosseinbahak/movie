@@ -6,11 +6,24 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-
 from random import randint
-
 from .models import *
 from .serializers import *
+import json
+import requests
+from requests.api import request
+
+
+base_url =  "http://127.0.0.1:8000/api/"
+
+def home(request):
+    data = requests.get(base_url+'TopRated/')
+    top_rated_data  = data.json()
+
+    #we got it look at terminal :)
+    print(top_rated_data["movie_ids"])
+    
+    return render(request, 'index.html', {'top_data': top_rated_data})
 
 
 def check_DB():
@@ -216,6 +229,3 @@ def search(request):
     else:
         raise Http404("we couldn't find what you're looking for")
 
-
-def home(request):
-    return render(request, 'index.html', {})
