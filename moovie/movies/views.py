@@ -91,8 +91,8 @@ def all_genres(request, which_genre):
 
 
 @api_view(['GET'])
-def movie_details(request):
-    movie_id = request.GET['movie_id']
+def movie_details(request, movie_id):
+   # movie_id = request.GET['movie_id']
     casts = Actor.objects.all()
     directors = Director.objects.all()
     casts_name = []
