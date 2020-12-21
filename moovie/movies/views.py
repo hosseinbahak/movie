@@ -12,13 +12,16 @@ from .serializers import *
 import json
 import requests
 from requests.api import request
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def home(request):
     data = top_rated(request)
     top_rated_data_raw = json.loads(data.rendered_content.decode('utf8'))
     top_rated_data = []
-    for movie in top_rated_data_raw['movie_ids']:
+    for movie in top_rated_data_raw['movie_ids'][:10]:
         data = movie_details(request, movie)
         top_rated_data.append(json.loads(data.rendered_content.decode('utf8')))
 
@@ -27,9 +30,10 @@ def home(request):
     release_date_data = []
     for movie in release_date_data_raw['movie_ids'][:5]:
         data = movie_details(request, movie)
-        release_date_data.append(json.loads(data.rendered_content.decode('utf8')))
-    
-    context =  {'top_rated': top_rated_data, 'top_release':release_date_data}
+        release_date_data.append(json.loads(
+            data.rendered_content.decode('utf8')))
+
+    context = {'top_rated': top_rated_data, 'top_release': release_date_data}
     return render(request, 'index.html', context=context)
 
 
@@ -118,7 +122,6 @@ def movie_details(request, movie_id):
     casts_name = []
     writesrs_name = []
     directors_name = []
-    movie_poster_url = "https://image.tmdb.org/t/p/original"
 
     for cast in casts:
         for castMovieId in cast.movie_ids.split(','):
@@ -137,7 +140,11 @@ def movie_details(request, movie_id):
 
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
-        movie_poster_url += movie_info.poster
+        # get the right picture for movie
+        api_req = requests.get("https://api.themoviedb.org/3/movie/" + 
+            str(movie_info.id) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
+        movie_poster_url = "https://image.tmdb.org/t/p/original" + \
+            api_req.json()['poster_path']
 
         data = {
             'id': movie_id,
