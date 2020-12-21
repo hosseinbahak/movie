@@ -104,7 +104,9 @@ def movie_details(request, movie_id):
    # movie_id = request.GET['movie_id']
     casts = Actor.objects.all()
     directors = Director.objects.all()
+    writers = Writer.objects.all()
     casts_name = []
+    writesrs_name = []
     directors_name = []
     movie_poster_url = "https://image.tmdb.org/t/p/w500"
 
@@ -112,6 +114,11 @@ def movie_details(request, movie_id):
         for castMovieId in cast.movie_ids.split(','):
             if castMovieId == movie_id:
                 casts_name.append(cast.name)
+
+    for writer in writers :
+        for writers_movie_ids in writer.movie_ids.split(','):
+            if writers_movie_ids == movie_id:
+                writesrs_name.append(writer.name)
 
     for director in directors :
         for directorMovieId in director.movie_ids.split(','):
@@ -129,6 +136,7 @@ def movie_details(request, movie_id):
             'budget' : movie_info.budget,
             'genres': movie_info.genres,
             'casts' : casts_name,
+            'writers' : writesrs_name,
             'directors': directors_name,
             'genres' : movie_info.genres,
             'language': movie_info.language,
