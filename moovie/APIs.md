@@ -110,7 +110,7 @@ Example :
 }
 ```
 
-## /api/Movie/
+## /api/Movie/862
 
 - GET : returns a json
 - Input: movie_id

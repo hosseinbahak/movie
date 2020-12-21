@@ -16,10 +16,21 @@ from requests.api import request
 
 def home(request):
     data = top_rated(request)
-    top_rated_data  = json.loads(data.rendered_content.decode('utf8'))
+    top_rated_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    top_rated_data = []
+    for movie in top_rated_data_raw['movie_ids']:
+        data = movie_details(request, movie)
+        top_rated_data.append(json.loads(data.rendered_content.decode('utf8')))
+
     data = release_date(request)
-    release_date_data = json.loads(data.rendered_content.decode('utf8'))
-    return render(request, 'index.html', {'top_data': top_rated_data})
+    release_date_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    release_date_data = []
+    for movie in release_date_data_raw['movie_ids'][:5]:
+        data = movie_details(request, movie)
+        release_date_data.append(json.loads(data.rendered_content.decode('utf8')))
+    
+    context =  {'top_rated': top_rated_data, 'top_release':release_date_data}
+    return render(request, 'index.html', context=context)
 
 
 def check_DB():
@@ -101,52 +112,50 @@ def all_genres(request, which_genre):
 
 @api_view(['GET'])
 def movie_details(request, movie_id):
-   # movie_id = request.GET['movie_id']
     casts = Actor.objects.all()
     directors = Director.objects.all()
     writers = Writer.objects.all()
     casts_name = []
     writesrs_name = []
     directors_name = []
-    movie_poster_url = "https://image.tmdb.org/t/p/w500"
+    movie_poster_url = "https://image.tmdb.org/t/p/original"
 
-    for cast in casts :
+    for cast in casts:
         for castMovieId in cast.movie_ids.split(','):
             if castMovieId == movie_id:
                 casts_name.append(cast.name)
 
-    for writer in writers :
+    for writer in writers:
         for writers_movie_ids in writer.movie_ids.split(','):
             if writers_movie_ids == movie_id:
                 writesrs_name.append(writer.name)
 
-    for director in directors :
+    for director in directors:
         for directorMovieId in director.movie_ids.split(','):
             if directorMovieId == movie_id:
                 directors_name.append(director.name)
-    
-    
+
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
         movie_poster_url += movie_info.poster
-    
+
         data = {
-            'id' : movie_id,
+            'id': movie_id,
             'title': movie_info.title,
-            'budget' : movie_info.budget,
+            'budget': movie_info.budget,
             'genres': movie_info.genres,
-            'casts' : casts_name,
-            'writers' : writesrs_name,
+            'casts': casts_name,
+            'writers': writesrs_name,
             'directors': directors_name,
-            'genres' : movie_info.genres,
+            'genres': movie_info.genres,
             'language': movie_info.language,
-            'overview' : movie_info.overview,
-            'companies': movie_info.companies,    
-            'countries' : movie_info.countries,
+            'overview': movie_info.overview,
+            'companies': movie_info.companies,
+            'countries': movie_info.countries,
             'release_date': movie_info.release_date,
-            'revenue' : movie_info.revenue,
+            'revenue': movie_info.revenue,
             'runtime': movie_info.runtime,
-            'vote_average' : movie_info.vote_average,
+            'vote_average': movie_info.vote_average,
             'vote_count': movie_info.vote_count,
             'poster': movie_poster_url
         }
@@ -232,4 +241,3 @@ def search(request):
         return Response(result)
     else:
         raise Http404("we couldn't find what you're looking for")
-

@@ -52,96 +52,26 @@
                     <div class="slider ">
                         <div class="carousel" data-flickity='{  "wrapAround": true,
                         "rightToLeft": false, "cellAlign": "left" ,  "contain": true , "imageLoaded" : true }'>
-                            <div class="carousel-cell movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
+                            {% for movie in top_release %}
+                                <div class="carousel-cell movie-item">
+                                    <div class="movie-item--link">
+                                        <a href="#" class="cover-link"></a>
+                                        <img class="movie-item__img" src="{{movie.poster}}" alt="">
+                                        <div class="movie-item__rate movie-item__rate--good">{{movie.vote_average}}</div>
+                                        <div class="movie-item__overlay">
+                                            <a href="#" class="movie-item__title">{{movie.title}}</a>
+                                            <ul class="movie-item__genre-list">
+                                                <li class="movie-item__genre">
+                                                    <a href="">Romance, </a>
+                                                </li>
+                                                <li class="movie-item__genre">
+                                                    <a href="">Drama</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-cell movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-cell movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-2.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--normal">6.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-cell movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-3.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--bad">4.2</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-cell movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">9</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -170,276 +100,26 @@
                     <div class="tab-pane fade show active" id="nav-newreleases" role="tabpanel"
                         aria-labelledby="nav-newreleases-tab">
                         <div class="movie-tab__content">
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
+                            {% for movie in top_rated %}
+                                <div class="carousel-cell movie-item">
+                                    <div class="movie-item--link">
+                                        <a href="#" class="cover-link"></a>
+                                        <img class="movie-item__img" src="{{movie.poster}}" alt="">
+                                        <div class="movie-item__rate movie-item__rate--good">{{movie.vote_average}}</div>
+                                        <div class="movie-item__overlay">
+                                            <a href="#" class="movie-item__title">{{movie.title}}</a>
+                                            <ul class="movie-item__genre-list">
+                                                <li class="movie-item__genre">
+                                                    <a href="">Romance, </a>
+                                                </li>
+                                                <li class="movie-item__genre">
+                                                    <a href="">Drama</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="movie-item">
-                                <div class="movie-item--link">
-                                    <a href="#" class="cover-link"></a>
-                                    <img class="movie-item__img" src="img/slider-item-1.jpg" alt="">
-                                    <div class="movie-item__rate movie-item__rate--good">8.6</div>
-                                    <div class="movie-item__overlay">
-                                        <a href="#" class="movie-item__title">The New Mutents</a>
-                                        <ul class="movie-item__genre-list">
-                                            <li class="movie-item__genre">
-                                                <a href="">Romance, </a>
-                                            </li>
-                                            <li class="movie-item__genre">
-                                                <a href="">Drama</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-Movies" role="tabpanel" aria-labelledby="nav-Movies-tab">
