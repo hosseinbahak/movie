@@ -14,15 +14,11 @@ import requests
 from requests.api import request
 
 
-base_url =  "http://127.0.0.1:8000/api/"
-
 def home(request):
-    data = requests.get(base_url+'TopRated/')
-    top_rated_data  = data.json()
-
-    #we got it look at terminal :)
-    print(top_rated_data["movie_ids"])
-    
+    data = top_rated(request)
+    top_rated_data  = json.loads(data.rendered_content.decode('utf8'))
+    data = release_date(request)
+    release_date_data = json.loads(data.rendered_content.decode('utf8'))
     return render(request, 'index.html', {'top_data': top_rated_data})
 
 
