@@ -14,7 +14,7 @@ class Movie(models.Model):
     runtime = models.FloatField()
     vote_average = models.FloatField()
     vote_count = models.PositiveIntegerField()
-    poster = models.CharField(max_length=50)
+    poster = models.TextField()
 
 class Actor(models.Model):
     SEX_CHOICES = [('M', 'Male'), ('F', 'Female')]

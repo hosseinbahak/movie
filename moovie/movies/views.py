@@ -10,11 +10,6 @@ from random import randint
 from .models import *
 from .serializers import *
 import json
-import requests
-from requests.api import request
-import os
-from dotenv import load_dotenv
-load_dotenv()
 
 
 def home(request):
@@ -140,11 +135,7 @@ def movie_details(request, movie_id):
 
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
-        # get the right picture for movie
-        api_req = requests.get("https://api.themoviedb.org/3/movie/" + 
-            str(movie_info.id) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
-        movie_poster_url = "https://image.tmdb.org/t/p/original" + \
-            api_req.json()['poster_path']
+        movie_poster_url = "https://image.tmdb.org/t/p/original" + movie_info.poster
 
         data = {
             'id': movie_id,

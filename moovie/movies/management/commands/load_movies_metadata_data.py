@@ -1,7 +1,10 @@
 from csv import DictReader
 from django.core.management import BaseCommand
 from movies.models import Movie, Actor, Director, Writer
-
+import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 ALREADY_LOADED_ERROR_MESSAGE = """
 If you need to reload the Movie data from the CSV files,
@@ -56,7 +59,13 @@ class Command(BaseCommand):
             movie.runtime = row['runtime']
             movie.vote_average = row['vote_average']
             movie.vote_count = row['vote_count']
-            movie.poster = row['poster_path']
+            try:
+                # get the right picture for movie
+                api_req = requests.get("https://api.themoviedb.org/3/movie/" + 
+                str(row['id']) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
+                movie.poster = str(api_req.json()['poster_path'])
+            except:
+                movie.poster = row['poster_path']
             movie.save()
         print("Loading Actor, Director, Writer data for Credits available in credits.csv")
         SEX_CHOICES = {1:'F', 2:'M', 0:''}
