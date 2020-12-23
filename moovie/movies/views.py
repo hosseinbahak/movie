@@ -33,8 +33,6 @@ def home(request):
     for movie in random_data_raw['movie_ids'][:5]:
         data = movie_details(request, movie)
         random_data.append(json.loads(data.rendered_content.decode('utf8')))
-        for f in random_data:
-            print(f)
 
     context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
     return render(request, 'index.html', context=context)
