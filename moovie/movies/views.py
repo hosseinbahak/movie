@@ -34,6 +34,7 @@ def home(request):
         data = movie_details(request, movie)
         random_data.append(json.loads(data.rendered_content.decode('utf8')))
 
+
     context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
     return render(request, 'index.html', context=context)
 
