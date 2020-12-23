@@ -168,9 +168,11 @@
                                             </div>
                                             <div class="movie-item__label">
                                                 <span class="label">Stars : </span>
+                                                <span class="data">
                                                 {%for cast in movie.casts %}
-                                                    <span class="data"> {{cast}} </span> 
+                                                    {{cast}},
                                                 {%endfor%}
+                                                </span> 
                                                 </div>
                                         </div>
                                 </div>

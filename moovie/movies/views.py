@@ -28,8 +28,7 @@ def home(request):
         release_date_data.append(json.loads(data.rendered_content.decode('utf8')))
 
     data = random(request)
-    # random_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    random_data_raw = {'movie_ids':[862]}
+    random_data_raw = json.loads(data.rendered_content.decode('utf8'))
     random_data = []
     for movie in random_data_raw['movie_ids'][:5]:
         data = movie_details(request, movie)
