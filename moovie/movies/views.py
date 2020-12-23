@@ -132,14 +132,10 @@ def movie_details(request, movie_id):
             if castMovieId == movie_id:
                 casts_name.append(cast.name)
 
-    castString = ', '.join([str(elem) for elem in casts_name]) 
-
     for writer in writers:
         for writers_movie_ids in writer.movie_ids.split(','):
             if writers_movie_ids == movie_id:
                 writers_name.append(writer.name)
-
-    writerString = ', '.join([str(elem) for elem in writers_name]) 
 
     for director in directors:
         for directorMovieId in director.movie_ids.split(','):
@@ -165,8 +161,8 @@ def movie_details(request, movie_id):
             'budget': movie_info.budget,
             'genres': movie_genres,
             'casts': casts_name,
-            'writers': writerString,
-            'directors': directorString,
+            'writers': writers_name,
+            'directors': directors_name,
             'language': movie_info.language,
             'overview': movie_info.overview,
             'companies': movie_info.companies,
