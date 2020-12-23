@@ -73,7 +73,8 @@ class Command(BaseCommand):
             # import Actors
             actors_raw = row['cast']
             actors_list = eval(actors_raw)
-            for each_actor in actors_list:
+            for each_actor in actors_list[:5]:
+                # if we have the actor just add movie id to it
                 try:
                     actor = Actor.objects.get(actor_id=each_actor['id'])
                     actor.movie_ids = actor.movie_ids + ',' + row['id']
@@ -91,9 +92,11 @@ class Command(BaseCommand):
             crews_list = eval(crews_raw)
             # get only 1 writer
             flag_one_writer = False
+            # get only 1 director
+            flag_one_director = False
             for crew in crews_list:
                 # import Director
-                if crew['job'] == 'Director' :
+                if flag_one_director == False and crew['job'] == 'Director' :
                     try:
                         director = Director.objects.get(actor_id=crew['id'])
                         director.movie_ids = director.movie_ids + ',' + row['id']
@@ -105,6 +108,7 @@ class Command(BaseCommand):
                         director.gender = SEX_CHOICES[gender_raw]
                         director.movie_ids = row['id']
                     director.save()
+                    flag_one_director = True
                 # import Writer
                 elif flag_one_writer == False and crew['department'] == 'Writing' :
                     try:
@@ -119,5 +123,6 @@ class Command(BaseCommand):
                         writer.movie_ids = row['id']
                     writer.save()
                     flag_one_writer = True
-            
+                if flag_one_writer == True and flag_one_director == True:
+                    break
             

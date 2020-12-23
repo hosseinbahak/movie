@@ -34,8 +34,6 @@ def home(request):
         data = movie_details(request, movie)
         random_data.append(json.loads(data.rendered_content.decode('utf8')))
 
-    #print(random_data)    
-
     context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
     return render(request, 'index.html', context=context)
 
@@ -127,46 +125,37 @@ def movie_details(request, movie_id):
     writers_name = []
     directors_name = []
 
-    for cast in casts:
-        for castMovieId in cast.movie_ids.split(','):
-            if castMovieId == movie_id:
-                casts_name.append(cast.name)
-
-    castString = ', '.join([str(elem) for elem in casts_name]) 
-
-    for writer in writers:
-        for writers_movie_ids in writer.movie_ids.split(','):
-            if writers_movie_ids == movie_id:
-                writers_name.append(writer.name)
-
-    writerString = ', '.join([str(elem) for elem in writers_name]) 
-
-    for director in directors:
-        for directorMovieId in director.movie_ids.split(','):
-            if directorMovieId == movie_id:
-                directors_name.append(director.name)
-
-    directorString =  ' '.join(map(str, directors_name))
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
         movie_poster_url = "https://image.tmdb.org/t/p/original" + movie_info.poster
 
         for genre in movie_info.genres.split(','):
                 movie_genres.append(genre)
-    
-        for castMovieId in cast.movie_ids.split(','):
-            if castMovieId == movie_id:
-                casts_name.append(cast.name)
 
-        
+
+        for cast in casts:
+            for castMovieId in cast.movie_ids.split(','):
+                if int(castMovieId) == movie_id:
+                    casts_name.append(cast.name)
+
+        for writer in writers:
+            for writers_movie_ids in writer.movie_ids.split(','):
+                if int(writers_movie_ids) == movie_id:
+                    writers_name.append(writer.name)
+
+        for director in directors:
+            for directorMovieId in director.movie_ids.split(','):
+                if int(directorMovieId) == movie_id:
+                    directors_name.append(director.name)
+
         data = {
             'id': movie_id,
             'title': movie_info.title,
+            'casts': casts_name,
+            'writers': writers_name,
+            'directors': directors_name,
             'budget': movie_info.budget,
             'genres': movie_genres,
-            'casts': casts_name,
-            'writers': writerString,
-            'directors': directorString,
             'language': movie_info.language,
             'overview': movie_info.overview,
             'companies': movie_info.companies,
