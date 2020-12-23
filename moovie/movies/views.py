@@ -28,13 +28,12 @@ def home(request):
         release_date_data.append(json.loads(data.rendered_content.decode('utf8')))
 
     data = random(request)
-    random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    # random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    random_data_raw = {'movie_ids':[862]}
     random_data = []
     for movie in random_data_raw['movie_ids'][:5]:
         data = movie_details(request, movie)
         random_data.append(json.loads(data.rendered_content.decode('utf8')))
-        for f in random_data:
-            print(f)
 
     context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
     return render(request, 'index.html', context=context)
@@ -137,17 +136,17 @@ def movie_details(request, movie_id):
 
         for cast in casts:
             for castMovieId in cast.movie_ids.split(','):
-                if castMovieId == movie_id:
+                if int(castMovieId) == movie_id:
                     casts_name.append(cast.name)
 
         for writer in writers:
             for writers_movie_ids in writer.movie_ids.split(','):
-                if writers_movie_ids == movie_id:
+                if int(writers_movie_ids) == movie_id:
                     writers_name.append(writer.name)
 
         for director in directors:
             for directorMovieId in director.movie_ids.split(','):
-                if directorMovieId == movie_id:
+                if int(directorMovieId) == movie_id:
                     directors_name.append(director.name)
 
         data = {

@@ -90,7 +90,7 @@
                         <div class="nav nav-tabs movie-tab__tab" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-newreleases-tab" data-toggle="tab"
                                 href="#nav-newreleases" role="tab" aria-controls="nav-newreleases"
-                                aria-selected="true">New releases</a>
+                                aria-selected="true">Top Rated Movies</a>
                             <a class="nav-item nav-link" id="nav-Movies-tab" data-toggle="tab" href="#nav-Movies"
                                 role="tab" aria-controls="nav-Movies" aria-selected="false">Movies</a>
 
@@ -156,11 +156,15 @@
                                             </p>
                                             <div class="movie-item__label">
                                                 <span class="label">Director :</span>
-                                                <span class="data">   </span>
+                                                {%for director in movie.directors %}
+                                                    <span class="data"> {{director}} </span> 
+                                                {%endfor%}
                                             </div>
                                             <div class="movie-item__label">
                                                 <span class="label">Writers :</span>
-                                                <span class="data">  </span>
+                                                {%for writer in movie.writers %}
+                                                    <span class="data"> {{writer}} </span> 
+                                                {%endfor%}
                                             </div>
                                             <div class="movie-item__label">
                                                 <span class="label">Stars : </span>
