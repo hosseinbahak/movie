@@ -25,10 +25,18 @@ def home(request):
     release_date_data = []
     for movie in release_date_data_raw['movie_ids'][:5]:
         data = movie_details(request, movie)
-        release_date_data.append(json.loads(
-            data.rendered_content.decode('utf8')))
+        release_date_data.append(json.loads(data.rendered_content.decode('utf8')))
 
-    context = {'top_rated': top_rated_data, 'top_release': release_date_data}
+    data = random(request)
+    random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    random_data = []
+    for movie in random_data_raw['movie_ids'][:5]:
+        data = movie_details(request, movie)
+        random_data.append(json.loads(data.rendered_content.decode('utf8')))
+
+    #print(random_data)    
+
+    context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
     return render(request, 'index.html', context=context)
 
 
@@ -61,7 +69,7 @@ def all_actors(request, actor_id):
         for actor in result:
             # reverse create full link to each actor
             actor['url'] = reverse('all_actors', args=[
-                                   str(actor['actor_id'])], request=request)
+                                str(actor['actor_id'])], request=request)
         return Response(result)
 
 
@@ -114,8 +122,9 @@ def movie_details(request, movie_id):
     casts = Actor.objects.all()
     directors = Director.objects.all()
     writers = Writer.objects.all()
+    movie_genres = []
     casts_name = []
-    writesrs_name = []
+    writers_name = []
     directors_name = []
 
     for cast in casts:
@@ -123,29 +132,41 @@ def movie_details(request, movie_id):
             if castMovieId == movie_id:
                 casts_name.append(cast.name)
 
+    castString = ', '.join([str(elem) for elem in casts_name]) 
+
     for writer in writers:
         for writers_movie_ids in writer.movie_ids.split(','):
             if writers_movie_ids == movie_id:
-                writesrs_name.append(writer.name)
+                writers_name.append(writer.name)
+
+    writerString = ', '.join([str(elem) for elem in writers_name]) 
 
     for director in directors:
         for directorMovieId in director.movie_ids.split(','):
             if directorMovieId == movie_id:
                 directors_name.append(director.name)
 
+    directorString =  ' '.join(map(str, directors_name))
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
         movie_poster_url = "https://image.tmdb.org/t/p/original" + movie_info.poster
 
+        for genre in movie_info.genres.split(','):
+                movie_genres.append(genre)
+    
+        for castMovieId in cast.movie_ids.split(','):
+            if castMovieId == movie_id:
+                casts_name.append(cast.name)
+
+        
         data = {
             'id': movie_id,
             'title': movie_info.title,
             'budget': movie_info.budget,
-            'genres': movie_info.genres,
+            'genres': movie_genres,
             'casts': casts_name,
-            'writers': writesrs_name,
-            'directors': directors_name,
-            'genres': movie_info.genres,
+            'writers': writerString,
+            'directors': directorString,
             'language': movie_info.language,
             'overview': movie_info.overview,
             'companies': movie_info.companies,
