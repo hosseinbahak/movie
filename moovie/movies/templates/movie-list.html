@@ -111,7 +111,7 @@
 
 
 
-
+                                {%if B%}
                                 <div class="carousel-cell">
 
                                     <div class="list-slider__row"> 
@@ -170,13 +170,14 @@
 
 
                                 </div>
+                                {%endif%}
                                 
-                                
 
 
-
+                                {%if C%}
                                 <div class="carousel-cell">
                                     <div class="list-slider__row">
+                                        
                                         {%for a in C %}
                                         <div class="list-slider__col">
                                             <div class="movie-item">
@@ -229,12 +230,13 @@
                                     </div>
 
                                 </div>
+                                {%endif%}
 
-
-
+                                {%if D%}
                                 <div class="carousel-cell">
                                     
                                     <div class="list-slider__row">
+                                        
                                         {%for a in D %}
                                         <div class="list-slider__col">
                                             <div class="movie-item">
@@ -287,6 +289,7 @@
                                     </div>
 
                                 </div>
+                                {%endif%}
 
 
                         </div>

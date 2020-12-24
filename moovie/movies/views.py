@@ -70,20 +70,18 @@ def movie_list(request,type):
         data = all_genres(request,type)
         genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
         movies = []
-        genre_movies = []
-        for movie in genres_data_raw:
-        #    for ids in movie['movie_ids']:
-        #        movie_data = movie_details(request, str(ids))
-        #        movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
-
-            #data = {'genre': movie['name'], 'url': movie['url'], 'movies': movies}
-            genre_movies.append(movies)
         
-        print(genre_movies)
+        for ids in genres_data_raw['movie_ids']:
+            movie_data = movie_details(request, str(ids))
+            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-        A = genre_movies[:20]
-        B = genre_movies[20:]
-        return render(request, 'movie-list.html', {'A': A, 'B': B})
+        
+        A = movies[0:8]
+        B = movies[8:16]
+        C = movies[16:24]
+        D = movies[24:32]
+        
+        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D})
 
 def movie_detail(request, movie_id):
     
