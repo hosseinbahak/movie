@@ -18,8 +18,6 @@ The documentaions to this app is in [here](https://github.com/hosseinbahak/SE2/t
 * [Hassan MoosaAbadi](https://github.com/Hassan1247)
 * [hossein bahak](https://github.com/hosseinbahak)
 ## Wiki
-You can look at our wiki page for more information.
-
-[Wiki](https://github.com/hosseinbahak/SE2/wiki)
+You can look at our wiki page for more information. [Wiki](https://github.com/hosseinbahak/SE2/wiki)
 ## License
-The Moovi App is open source software licensed as [GPL-3.0](https://github.com/hosseinbahak/SE2/blob/main/LICENSE).
+The Moovie App is open source software licensed as [GPL-3.0](https://github.com/hosseinbahak/SE2/blob/main/LICENSE).
