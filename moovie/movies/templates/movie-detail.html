@@ -70,9 +70,7 @@
                     <div class="movie-detail__label">
                         <span class="label">Stars : </span>
                         <span class="data">
-                        {%for cast in movie.casts %}
-                            {{cast}},
-                        {%endfor%}
+                        {{movie.casts|join:", "}}
                         </span> 
                     </div>
                     <div class="movie-detail__label">
@@ -81,7 +79,7 @@
                             <ul class="movie-detail__genres-list">
                                 <li>
                                 {% for genre in movie.genres %}
-                                    {{genre}},
+                                    <a href="">{{genre}}</a>
                                 {% endfor %}
                                 </li>
                             </ul>
@@ -94,7 +92,7 @@
                     </div>
                     <div class="movie-detail__label">
                         <span class="label">Running Time :</span>
-                        <span class="data">{{movie.runtime}}</span>
+                        <span class="data">{{movie.runtime}} minutes</span>
                     </div>
                     <div class="movie-detail__label">
                         <span class="label">Country :</span>
@@ -102,7 +100,7 @@
                     </div>
                     <div class="movie-detail__label">
                         <span class="label">Budget :</span>
-                        <span class="data">{{movie.budget}} </span>
+                        <span class="data">{{movie.budget}} $</span>
                     </div>
                     <div class="movie-detail__label">
                         <span class="label">IMDB Vote rate :</span>
@@ -159,9 +157,7 @@
                                                 <div class="movie-item__label">
                                                     <span class="label">Stars : </span>
                                                     <span class="data">
-                                                    {%for cast in movie.casts %}
-                                                        {{cast}},
-                                                    {%endfor%}
+                                                    {{movie.casts|join:", "}}
                                                     </span> 
                                                 </div>
                                             </div>

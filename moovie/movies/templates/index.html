@@ -143,7 +143,7 @@
                                         <a href="{% url 'movie_detail' movie_id=movie.id %}" class="cover-link"></a>
                                         <img class="movie-item__img" src="{{movie.poster}}" alt="">
                                         <div class="movie-item__overlay">
-                                            <a href="#" class="movie-item__title">{{movie.title}}</a>
+                                            <a href="{% url 'movie_detail' movie_id=movie.id %}" class="movie-item__title">{{movie.title}}</a>
                                             <ul class="movie-item__genre-list">
                                                 <li class="movie-item__genre">
                                                     {% for genre in movie.genres %}
@@ -169,9 +169,7 @@
                                             <div class="movie-item__label">
                                                 <span class="label">Stars : </span>
                                                 <span class="data">
-                                                {%for cast in movie.casts %}
-                                                    {{cast}},
-                                                {%endfor%}
+                                                {{movie.casts|join:","}}
                                                 </span> 
                                                 </div>
                                         </div>
