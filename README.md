@@ -17,7 +17,7 @@ The documentaions to this app is in [here](https://github.com/hosseinbahak/SE2/t
 * [Aidin Sahebi](https://github.com/Aidin78)
 * [Hassan MoosaAbadi](https://github.com/Hassan1247)
 * [hossein bahak](https://github.com/hosseinbahak)
-* [Ghazaleh Davarzani]()
+* Ghazaleh Davarzani
 ## Wiki
 You can look at our wiki page for more information. [Wiki](https://github.com/hosseinbahak/SE2/wiki)
 ## License
