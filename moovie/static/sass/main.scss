@@ -272,6 +272,10 @@ a {
   max-height: 100px;
   min-height: 50px;
   padding: 20px 0;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+
   &__logo {
     :hover {
       filter: drop-shadow(0 0 0.75rem #a024d475);
@@ -291,6 +295,7 @@ a {
     font-size: 15px;
     a {
       padding-right: 40px;
+      font-size: 18px;
       color: white;
       display: block;
       &:hover {
@@ -416,9 +421,9 @@ a {
       #1e1d23 100%
     );
   }
-  .movie-item{
-    &__img{
-      max-width: 252.5  px;
+  .movie-item {
+    &__img {
+      max-width: 252.5 px;
     }
   }
 }
@@ -555,4 +560,174 @@ a {
   }
 }
 
+.genres-list {
+  min-height: calc(100vh - 297px);
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__item {
+    width: calc(25% - 30px);
+    height: 125px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 5px;
+    background: linear-gradient(#554c67 0%, #282730 100%);
+    @extend %flex-centered;
+    @extend %cover-link;
+    position: relative;
+    &::before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("../img/box-pattern.png");
+      background-position: center;
+      background-size: cover;
+    }
+    @include transition(all 0.3s ease);
+    transform: scale(1);
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 8px rgba($color: #ffffff, $alpha: 0.1);
+      .genres-list__title {
+        color: $secondary-color-2;
+      }
+    }
+  }
+  &__title {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    @include transition(all 0.3s ease);
+    @include lineclamp(1);
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}
+.list-slider {
+  min-height: calc(100vh - 297px);
+
+  &__slider {
+    .movie-item {
+      &__img {
+        border-radius: 0;
+        max-width: 258px;
+      }
+      &__overlay {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 15px;
+        padding-right: 15px;
+        position: unset;
+        @include justify-content(flex-start);
+        flex: 1;
+        height: 100%;
+        border-radius: 0;
+        background: unset;
+      }
+    }
+  }
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__col {
+    flex-basis: 50%;
+    margin-bottom: 30px;
+    &:nth-child(odd) {
+      padding-right: 15px;
+    }
+    &:nth-child(even) {
+      padding-left: 15px;
+    }
+    &:nth-child(9) {
+      margin-bottom: 0px;
+    }
+    &:nth-child(10) {
+      margin-bottom: 0px;
+    }
+  }
+  .carousel-cell {
+    width: calc(100%);
+    padding-left: 0;
+  }
+}
+.movie-detail {
+  margin: 0;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  background-image: url("../img/movie-detail-background.png");
+  color: rgba($color: #fff, $alpha: 0.85);
+  position: relative;
+  &::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+      #1a191f 0%,
+      rgba(9, 8, 10, 0.84) 49.2%,
+      #1e1d23 100%
+    );
+  }
+  &__name {
+    font-size: 26px;
+  }
+  &__pic{
+    box-shadow: rgba($color: #000000, $alpha: 0.16);
+    img{
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 445px;
+    }
+  }
+  &__movie-about {
+    @include lineclamp(5);
+    font-size: 18px;
+    line-height: 1.9;
+    margin-bottom: 25px;
+  }
+  &__label {
+    margin-bottom: 15px;
+    display: flex;
+    .label {
+      font-size: 18px;
+      font-weight: bold;
+      padding-right: 8px;
+    }
+    .data {
+      flex: 1;
+      font-size: 17px;
+      font-weight: lighter;
+      color: rgba($color: #fff, $alpha: 0.8);
+      @include lineclamp(2);
+    }
+  }
+  &__genres-list{
+    padding: 0;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    li{
+
+      margin-right: 5px;
+    }
+    a{
+      color: inherit;
+      &:hover{
+        color: $secondary-color-2;
+      }
+    }
+  }
+}
 @import "animation";

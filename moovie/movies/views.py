@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponseServerError
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from json import JSONEncoder, loads
 from django.http import JsonResponse
@@ -36,6 +36,50 @@ def home(request):
 
     context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
     return render(request, 'index.html', context=context)
+
+
+def genres_page(request):
+    data = all_genres(request,False)
+    genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    movies = []
+    movies_ordered_by_genre = []
+    
+    for movie in genres_data_raw:
+        #for ids in movie['movie_ids']:
+         #   movie_data = movie_details(request, str(ids))
+          #  movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            
+        data = {'name': movie['name'], 'url': movie['url']}
+        movies_ordered_by_genre.append(data)   
+
+    #  movies_data.append(json.loads(data.rendered_content.decode('utf8')))
+
+    return render(request, 'genres.html', {'genres_data': movies_ordered_by_genre})
+
+
+def movie_list(request):
+    #  data = all_genres(request,False)
+    #  genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    #  movies = []
+    #  movies_ordered_by_genre = []
+    #  
+    #  for movie in genres_data_raw:
+    #      for ids in movie['movie_ids']:
+    #          movie_data = movie_details(request, str(ids))
+    #          movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+    #          
+    #      data = {'genre': movie['name'], 'url': movie['url'], 'movies': movies}
+    #      movies_ordered_by_genre.append(data)
+    #  
+    #  
+    #      print(movies_ordered_by_genre)    
+
+    #  movies_data.append(json.loads(data.rendered_content.decode('utf8')))
+
+    return render(request, 'movie-list.html')
+
+def movie(request):
+    return render(request, 'movie-detail.html')
 
 
 def check_DB():

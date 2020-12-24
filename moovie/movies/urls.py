@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^api/ReleaseDate/', views.release_date, name='release_date'),
     url(r'^api/Random/', views.random, name='random'),
     url(r'^api/Search/', views.search, name='search'),
+    url(r'^genres/', views.genres_page, name='genres'),
+    url(r'^movie_list/', views.movie_list, name='movie_list'),
+    url(r'^(?P<id>[\w-]+)/$', views.movie, name='movie'),
     url(r'', views.home, name='home'),
-
 ]

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="{% css/bootstrap.min.css %}">
+    <!--Flickity-->
+    <link rel="stylesheet" href="{% css/flickity.css %}">
+    <!--Main Style-->
+    <link rel="stylesheet" href="{% sass/main.css %}">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 header__logo">
+                    <a href="index.html">
+                        <img src="img/Logo.png" alt="MOOVIE">
+                    </a>
+                </div>
+                <div class="col-lg-6 header__menu">
+                    <ul>
+                        <li class="header__menu-item "><a href="index.html">Home</a></li>
+                        <li class="header__menu-item "><a href="index.html">Movies</a></li>
+                        <li class="header__menu-item "><a href="index.html">Genres</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 header__search">
+                    <form action="">
+                        <div class="header__search-container">
+                            <input type="text" name="" id="" placeholder="Search ...">
+                            <i class="moovie moovie-search"></i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="section movie-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-5 movie-detail__pic">
+                    <img src="img/movie-detail-pic.png" alt="">
+                </div>
+                <div class="col-7 section-with-title ">
+                    <div class="section-with-title__title movie-detail__name">
+                        Over the Moon
+                    </div>
+                    <p class="movie-detail__movie-about">
+                        It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                        distribution of letters, as opposed to using 'Content here, content here', making it look like
+                    </p>
+                    <div class="movie-detail__label">
+                        <span class="label">Director :</span>
+                        <span class="data">Mark Waters</span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">Casts :</span>
+                        <span class="data">Brian Cranston, Jesse Plemons, Matt Jones, Jonathan Banks, Charles Baker, Tess Harper </span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">Genres :</span>
+                        <span class="data">
+                            <ul class="movie-detail__genres-list">
+                                <li><a href="#">Action</a>,</li>
+                                <li><a href="#"> Thriller</a></li>
+                            </ul>
+
+                        </span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">Release Year :</span>
+                        <span class="data">2019 </span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">Running Time :</span>
+                        <span class="data">120 min </span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">Country :</span>
+                        <span class="data">USA </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="section suggestion-slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 section-with-title ">
+                    <div class="section-with-title__title">
+                        <span>Our Suggestion</span> for you
+                    </div>
+                    <div class="slider suggestion-slider__slider">
+                        <div class="carousel" data-flickity='{  "wrapAround": true, "pageDots" : false,
+                        "rightToLeft": false, "cellAlign": "left" ,  "contain": true , "imageLoaded" : true }'>
+                            <div class="carousel-cell movie-item">
+                                <div class="movie-item--link">
+                                    <a href="#" class="cover-link"></a>
+                                    <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
+                                    <div class="movie-item__overlay">
+                                        <a href="#" class="movie-item__title">The New Mutents</a>
+                                        <ul class="movie-item__genre-list">
+                                            <li class="movie-item__genre">
+                                                <a href="">Romance, </a>
+                                            </li>
+                                            <li class="movie-item__genre">
+                                                <a href="">Drama</a>
+                                            </li>
+                                        </ul>
+                                        <p class="movie-item__movie-about">
+                                            Andy, at the urging of his former mentor t the urging of his former mentor
+                                            and Magic Camp owner Roy Preston, returns as a counselor to the camp of his
+                                            youth hoping to reignite his career.
+                                        </p>
+                                        <div class="movie-item__label">
+                                            <span class="label">Director :</span>
+                                            <span class="data">Mark Waters</span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Writers :</span>
+                                            <span class="data">Micah Fitzerman-Blue </span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Stars :</span>
+                                            <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-cell movie-item">
+                                <div class="movie-item--link">
+                                    <a href="#" class="cover-link"></a>
+                                    <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
+                                    <div class="movie-item__overlay">
+                                        <a href="#" class="movie-item__title">The New Mutents</a>
+                                        <ul class="movie-item__genre-list">
+                                            <li class="movie-item__genre">
+                                                <a href="">Romance, </a>
+                                            </li>
+                                            <li class="movie-item__genre">
+                                                <a href="">Drama</a>
+                                            </li>
+                                        </ul>
+                                        <p class="movie-item__movie-about">
+                                            Andy, at the urging of his former mentor t the urging of his former mentor
+                                            and Magic Camp owner Roy Preston, returns as a counselor to the camp of his
+                                            youth hoping to reignite his career.
+                                        </p>
+                                        <div class="movie-item__label">
+                                            <span class="label">Director :</span>
+                                            <span class="data">Mark Waters</span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Writers :</span>
+                                            <span class="data">Micah Fitzerman-Blue </span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Stars :</span>
+                                            <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-cell movie-item">
+                                <div class="movie-item--link">
+                                    <a href="#" class="cover-link"></a>
+                                    <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
+                                    <div class="movie-item__overlay">
+                                        <a href="#" class="movie-item__title">The New Mutents</a>
+                                        <ul class="movie-item__genre-list">
+                                            <li class="movie-item__genre">
+                                                <a href="">Romance, </a>
+                                            </li>
+                                            <li class="movie-item__genre">
+                                                <a href="">Drama</a>
+                                            </li>
+                                        </ul>
+                                        <p class="movie-item__movie-about">
+                                            Andy, at the urging of his former mentor t the urging of his former mentor
+                                            and Magic Camp owner Roy Preston, returns as a counselor to the camp of his
+                                            youth hoping to reignite his career.
+                                        </p>
+                                        <div class="movie-item__label">
+                                            <span class="label">Director :</span>
+                                            <span class="data">Mark Waters</span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Writers :</span>
+                                            <span class="data">Micah Fitzerman-Blue </span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Stars :</span>
+                                            <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-cell movie-item">
+                                <div class="movie-item--link">
+                                    <a href="#" class="cover-link"></a>
+                                    <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
+                                    <div class="movie-item__overlay">
+                                        <a href="#" class="movie-item__title">The New Mutents</a>
+                                        <ul class="movie-item__genre-list">
+                                            <li class="movie-item__genre">
+                                                <a href="">Romance, </a>
+                                            </li>
+                                            <li class="movie-item__genre">
+                                                <a href="">Drama</a>
+                                            </li>
+                                        </ul>
+                                        <p class="movie-item__movie-about">
+                                            Andy, at the urging of his former mentor t the urging of his former mentor
+                                            and Magic Camp owner Roy Preston, returns as a counselor to the camp of his
+                                            youth hoping to reignite his career.
+                                        </p>
+                                        <div class="movie-item__label">
+                                            <span class="label">Director :</span>
+                                            <span class="data">Mark Waters</span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Writers :</span>
+                                            <span class="data">Micah Fitzerman-Blue </span>
+                                        </div>
+                                        <div class="movie-item__label">
+                                            <span class="label">Stars :</span>
+                                            <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-9 footer__about">
+                    <div class="footer__logo">
+                        <a href="#">
+                            <img src="img/Logo.png" alt="MOOVIE">
+                        </a>
+                    </div>
+                    <div class="footer__about-content">
+                        <span>&copy; 2020 MOOVIE</span>
+                        <span>Created by The Makers Team</span>
+                    </div>
+                </div>
+                <div class="col-3 footer__go-top">
+                    <button class="go-top" onclick="$('html, body').animate({scrollTop:0},'100');"><i
+                            class="moovie moovie-arrow-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--JQuery-->
+    <script src="{% js/jquery-3.5.1.min.js %}"></script>
+    <!--Flickity-->
+    <script src="{% js/flickity.pkgd.min.js %}"></script>
+    <!--bootstrap-->
+    <script src="{% js/bootstrap.min.js %}"></script>
+    <!--my JS-->
+    <script src="{% js/main.js %}"></script>
+</body>
+
+</html>
