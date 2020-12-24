@@ -20,14 +20,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-2 header__logo">
-                    <a href="index.html">
+                    <a href="{% url 'home' %}">
                         <img src="{% static 'img/Logo.png' %}" alt="MOOVIE">
                     </a>
                 </div>
                 <div class="col-lg-6 header__menu">
                     <ul>
                         <li class="header__menu-item "><a href="{% url 'home' %}">Home</a></li>
-                        <li class="header__menu-item "><a href="{% url 'movie_list' %}">Movies</a></li>
+                            <li class="header__menu-item "><a href="{% url 'movie_list' type='rand' %}">Movies</a></li>
                         <li class="header__menu-item header__menu-item--active"><a href="#">Genres</a></li>
                     </ul>
                 </div>
@@ -55,7 +55,7 @@
                 <div class="genres-list__container">
                     {%for genre in genres_data%}
                         <section class="genres-list__item">
-                            <a href="{{genre.url}}" class="cover-link"></a>
+                            <a href="{% url 'movie_list' type=genre.name %}" class="cover-link"></a>
                             <h3 class="genres-list__title">{{genre.name}}</h3>
                         </section>
                     {%endfor%}    
@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-9 footer__about">
                     <div class="footer__logo">
-                        <a href="#">
+                        <a href="{% url 'home' %}">
                             <img src="{% static 'img/Logo.png' %}" alt="MOOVIE">
                         </a>
                     </div>

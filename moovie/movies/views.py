@@ -41,40 +41,49 @@ def home(request):
 def genres_page(request):
     data = all_genres(request,False)
     genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    movies = []
     movies_ordered_by_genre = []
     
-    for movie in genres_data_raw:
-        #for ids in movie['movie_ids']:
-         #   movie_data = movie_details(request, str(ids))
-          #  movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
-            
+    for movie in genres_data_raw:  
         data = {'name': movie['name'], 'url': movie['url']}
         movies_ordered_by_genre.append(data)   
 
     return render(request, 'genres.html', {'genres_data': movies_ordered_by_genre})
 
 
-def movie_list(request):
-    #  data = all_genres(request,False)
-    #  genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    #  movies = []
-    #  movies_ordered_by_genre = []
-    #  
-    #  for movie in genres_data_raw:
-    #      for ids in movie['movie_ids']:
-    #          movie_data = movie_details(request, str(ids))
-    #          movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
-    #          
-    #      data = {'genre': movie['name'], 'url': movie['url'], 'movies': movies}
-    #      movies_ordered_by_genre.append(data)
-    #  
-    #  
-    #      print(movies_ordered_by_genre)    
+def movie_list(request,type):
+    if type=='rand':
+        data = random(request)
+        random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+        random_data = []
+        for movie in random_data_raw['movie_ids'][:40]:
+            data = movie_details(request, str(movie))
+            random_data.append(json.loads(data.rendered_content.decode('utf8')))
+            
+        A = random_data[0:8]
+        B = random_data[8:16]
+        C = random_data[16:24]
+        D = random_data[24:32]
 
-    #  movies_data.append(json.loads(data.rendered_content.decode('utf8')))
+        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D})
 
-    return render(request, 'movie-list.html')
+    else:
+        data = all_genres(request,type)
+        genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
+        movies = []
+        genre_movies = []
+        for movie in genres_data_raw:
+        #    for ids in movie['movie_ids']:
+        #        movie_data = movie_details(request, str(ids))
+        #        movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+
+            #data = {'genre': movie['name'], 'url': movie['url'], 'movies': movies}
+            genre_movies.append(movies)
+        
+        print(genre_movies)
+
+        A = genre_movies[:20]
+        B = genre_movies[20:]
+        return render(request, 'movie-list.html', {'A': A, 'B': B})
 
 def movie_detail(request, movie_id):
     
@@ -261,7 +270,7 @@ def random(request):
     if 'num' in request.GET and request.GET['num'].isnumeric():
         NUMBERS = int(request.GET['num'])
     else:
-        NUMBERS = 10
+        NUMBERS = 40
     # bring all ids from movies DB
     all_ids = Movie.objects.all().values('id')
     data = {'movie_ids': []}

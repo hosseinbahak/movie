@@ -27,7 +27,7 @@
                 <div class="col-lg-6 header__menu">
                     <ul>
                         <li class="header__menu-item "><a href="{% url 'home' %}">Home</a></li>
-                        <li class="header__menu-item header__menu-item--active"><a href="{% url 'movie_list' %}">Movies</a>
+                        <li class="header__menu-item header__menu-item--active"><a href="{% url 'movie_list' type='rand' %}">Movies</a>
                         </li>
                         <li class="header__menu-item "><a href="{% url 'genres' %}">Genres</a></li>
                     </ul>
@@ -43,6 +43,7 @@
             </div>
         </div>
     </header>
+
     <div class="section list-slider">
         <div class="container">
             <div class="row">
@@ -51,420 +52,251 @@
                         <span>Our Suggestion</span> for you
                     </div>
                     <div class="slider list-slider__slider">
-                        <div class="carousel" data-flickity='{  "wrapAround": true, "pageDots" : false,
-                        "rightToLeft": false, "cellAlign": "left" ,  "contain": true , "imageLoaded" : true }'>
-                            <div class="carousel-cell">
-                                
-                                <div class="list-slider__row">
+                            <div class="carousel" data-flickity='{"wrapAround": true, "pageDots" : false, "rightToLeft": false, "cellAlign": "left" ,  "contain": true , "imageLoaded" : true }'>    
 
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
+                                <div class="carousel-cell">
+                                    <div class="list-slider__row"> 
+                                    {%for a in A %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {%for cast in a.casts %}
+                                                                    {{cast}},
+                                                                {%endfor%}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        {%endfor%}
+
                                     </div>
+                                </div>
 
 
 
 
 
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="carousel-cell">
 
-                                    
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        >                         youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
+                                    <div class="list-slider__row"> 
+                                        
+                                        {%for a in B %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {%for cast in a.casts %}
+                                                                    {{cast}},
+                                                                {%endfor%}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-slider__col">
-                                        <div class="movie-item">
-                                            <div class="movie-item--link">
-                                                <a href="#" class="cover-link"></a>
-                                                <img class="movie-item__img" src="img/slider-item-4.jpg" alt="">
-                                                <div class="movie-item__overlay">
-                                                    <a href="#" class="movie-item__title">The New Mutents</a>
-                                                    <ul class="movie-item__genre-list">
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Romance, </a>
-                                                        </li>
-                                                        <li class="movie-item__genre">
-                                                            <a href="">Drama</a>
-                                                        </li>
-                                                    </ul>
-                                                    <p class="movie-item__movie-about">
-                                                        Andy, at the urging of his former mentor t the urging of his
-                                                        former mentor
-                                                        and Magic Camp owner Roy Preston, returns as a counselor to the
-                                                        camp of his
-                                                        youth hoping to reignite his career.
-                                                    </p>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Director :</span>
-                                                        <span class="data">Mark Waters</span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Writers :</span>
-                                                        <span class="data">Micah Fitzerman-Blue </span>
-                                                    </div>
-                                                    <div class="movie-item__label">
-                                                        <span class="label">Stars :</span>
-                                                        <span class="data">Adam Devine / Jeffrey Tambor / Gillian Jacobs
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {%endfor%}
+                                        
+                                        
                                     </div>
 
 
                                 </div>
-////////////////////////////////////////////////////////////////////
-                            </div>
+                                
+                                
+
+
+
+                                <div class="carousel-cell">
+                                    <div class="list-slider__row">
+                                        {%for a in C %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {%for cast in a.casts %}
+                                                                    {{cast}},
+                                                                {%endfor%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                        
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="carousel-cell">
+                                    
+                                    <div class="list-slider__row">
+                                        {%for a in D %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {%for cast in a.casts %}
+                                                                    {{cast}},
+                                                                {%endfor%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                        
+                                    </div>
+
+                                </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    
 
     <footer class="footer">
         <div class="container">

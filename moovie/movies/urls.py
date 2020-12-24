@@ -11,7 +11,8 @@ urlpatterns = [
     url(r'^api/Random/', views.random, name='random'),
     url(r'^api/Search/', views.search, name='search'),
     url(r'^genres/', views.genres_page, name='genres'),
-    url(r'^movie_list/', views.movie_list, name='movie_list'),
-    url(r'^(?P<movie_id>[\w-]+)/$', views.movie_detail, name='movie_detail'),
+    url(r'^genre/(?P<type>[\w\s]+)/$', views.movie_list, name='movie_list'),
+    url(r'^movie_id/(?P<movie_id>.+?)/$', views.movie_detail, name='movie_detail'),
+    
     url(r'', views.home, name='home'),
 ]

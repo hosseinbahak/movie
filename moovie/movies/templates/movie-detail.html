@@ -27,7 +27,7 @@
                 <div class="col-lg-6 header__menu">
                     <ul>
                         <li class="header__menu-item "><a href="{% url 'home' %}">Home</a></li>
-                        <li class="header__menu-item "><a href="{% url 'movie_list' %}">Movies</a></li>
+                        <li class="header__menu-item "><a href="{% url 'movie_list' type='rand' %}">Movies</a></li>
                         <li class="header__menu-item "><a href="{% url 'genres' %}">Genres</a></li>
                     </ul>
                 </div>
@@ -93,6 +93,10 @@
                     <div class="movie-detail__label">
                         <span class="label">Running Time :</span>
                         <span class="data">{{movie.runtime}} minutes</span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">language :</span>
+                        <span class="data">{{movie.language}} </span>
                     </div>
                     <div class="movie-detail__label">
                         <span class="label">Country :</span>
