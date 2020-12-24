@@ -139,7 +139,7 @@
                                                 <ul class="movie-item__genre-list">
                                                     <li class="movie-item__genre">
                                                         {% for genre in movie.genres %}
-                                                            <a href="">{{genre}}</a>
+                                                            <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
                                                         {% endfor %}
                                                     </li>
                                                 </ul>
