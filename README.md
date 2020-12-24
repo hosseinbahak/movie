@@ -15,9 +15,9 @@ If you don't know how to run this app you should look at [here](https://github.c
 The documentaions to this app is in [here](https://github.com/hosseinbahak/SE2/tree/main/Documents).
 ## Contributors
 * [Aidin Sahebi](https://github.com/Aidin78)
+* Ghazaleh Davarzani
 * [Hassan MoosaAbadi](https://github.com/Hassan1247)
 * [hossein bahak](https://github.com/hosseinbahak)
-* Ghazaleh Davarzani
 ## Wiki
 You can look at our wiki page for more information. [Wiki](https://github.com/hosseinbahak/SE2/wiki)
 ## License
