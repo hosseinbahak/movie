@@ -65,6 +65,8 @@ class Command(BaseCommand):
                 str(row['id']) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
                 movie.poster = str(api_req.json()['poster_path'])
             except:
+                print('failed at loading poster path from: ' + "https://api.themoviedb.org/3/movie/" + 
+                str(row['id']) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
                 movie.poster = row['poster_path']
             movie.save()
         print("Loading Actor, Director, Writer data for Credits available in credits.csv")

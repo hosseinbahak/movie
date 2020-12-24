@@ -12,7 +12,7 @@ This web application is a visual and pretty interface for [kaggle](https://www.k
 ## How to run
 If you don't know how to run this app you should look at [here](https://github.com/hosseinbahak/SE2/wiki/How-to-use).
 ## Detailed diagrams & Documentation
-The documentaions to this app is in [here](https://github.com/hosseinbahak/SE2/tree/main/Documents)
+The documentaions to this app is in [here](https://github.com/hosseinbahak/SE2/tree/main/Documents).
 ## Contributors
 * [Aidin Sahebi](https://github.com/Aidin78)
 * [Hassan MoosaAbadi](https://github.com/Hassan1247)
