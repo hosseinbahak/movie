@@ -55,7 +55,7 @@
                             {% for movie in top_release %}
                                 <div class="carousel-cell movie-item">
                                     <div class="movie-item--link">
-                                        <a href="#" class="cover-link"></a>
+                                        <a href="{% url 'movie_detail' movie_id=movie.id %}" class="cover-link"></a>
                                         <img class="movie-item__img" src="{{movie.poster}}" alt="">
                                         <div class="movie-item__rate movie-item__rate--good">{{movie.vote_average}}</div>
                                         <div class="movie-item__overlay">
@@ -104,7 +104,7 @@
                             {% for movie in top_rated %}
                                 <div class="carousel-cell movie-item">
                                     <div class="movie-item--link">
-                                        <a href="#" class="cover-link"></a>
+                                        <a href="{% url 'movie_detail' movie_id=movie.id %}" class="cover-link"></a>
                                         <img class="movie-item__img" src="{{movie.poster}}" alt="">
                                         <div class="movie-item__rate movie-item__rate--good">{{movie.vote_average}}</div>
                                         <div class="movie-item__overlay">
@@ -140,7 +140,7 @@
                             <div class="carousel-cell movie-item">
                                     
                                 <div class="movie-item--link">
-                                        <a href="#" class="cover-link"></a>
+                                        <a href="{% url 'movie_detail' movie_id=movie.id %}" class="cover-link"></a>
                                         <img class="movie-item__img" src="{{movie.poster}}" alt="">
                                         <div class="movie-item__overlay">
                                             <a href="#" class="movie-item__title">{{movie.title}}</a>

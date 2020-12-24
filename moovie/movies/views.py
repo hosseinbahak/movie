@@ -52,8 +52,6 @@ def genres_page(request):
         data = {'name': movie['name'], 'url': movie['url']}
         movies_ordered_by_genre.append(data)   
 
-    #  movies_data.append(json.loads(data.rendered_content.decode('utf8')))
-
     return render(request, 'genres.html', {'genres_data': movies_ordered_by_genre})
 
 
@@ -78,8 +76,20 @@ def movie_list(request):
 
     return render(request, 'movie-list.html')
 
-def movie(request):
-    return render(request, 'movie-detail.html')
+def movie_detail(request, movie_id):
+    
+    movie_data = movie_details(request, str(movie_id))
+    movie_detail = json.loads(movie_data.rendered_content.decode('utf8'))
+    
+    data = random(request)
+    random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    random_data = []
+    for movie in random_data_raw['movie_ids'][:5]:
+        data = movie_details(request, str(movie))
+        random_data.append(json.loads(data.rendered_content.decode('utf8')))
+
+    context = {'movie': movie_detail, 'random': random_data}
+    return render(request, 'movie-detail.html', context=context)
 
 
 def check_DB():
