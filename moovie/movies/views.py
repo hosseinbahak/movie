@@ -58,7 +58,8 @@ def movie_list(request,type):
         for movie in random_data_raw['movie_ids'][:40]:
             data = movie_details(request, str(movie))
             random_data.append(json.loads(data.rendered_content.decode('utf8')))
-            
+        
+        #in movie list we just can show 8 element in each page so we have to slice our dict
         A = random_data[0:8]
         B = random_data[8:16]
         C = random_data[16:24]
@@ -71,11 +72,11 @@ def movie_list(request,type):
         genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
         movies = []
         
-        for ids in genres_data_raw['movie_ids']:
-            movie_data = movie_details(request, str(ids))
+        for id in genres_data_raw['movie_ids']:
+            movie_data = movie_details(request, str(id))
             movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-        
+        #in movie list we just can show 8 element in each page so we have to slice our dict
         A = movies[0:8]
         B = movies[8:16]
         C = movies[16:24]
@@ -88,14 +89,16 @@ def movie_detail(request, movie_id):
     movie_data = movie_details(request, str(movie_id))
     movie_detail = json.loads(movie_data.rendered_content.decode('utf8'))
     
-    data = random(request)
-    random_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    random_data = []
-    for movie in random_data_raw['movie_ids'][:5]:
-        data = movie_details(request, str(movie))
-        random_data.append(json.loads(data.rendered_content.decode('utf8')))
+    data = all_genres(request,movie_detail['genres'][0])
+    genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
+    movies = []
+    
+    #we will show related movies in "our suggestion" section. it seems smarter :D
+    for id in genres_data_raw['movie_ids'][:10]:
+        movie_data = movie_details(request, str(id))
+        movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-    context = {'movie': movie_detail, 'random': random_data}
+    context = {'movie': movie_detail, 'related_movies': movies}
     return render(request, 'movie-detail.html', context=context)
 
 
