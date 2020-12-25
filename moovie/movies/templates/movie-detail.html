@@ -32,9 +32,10 @@
                     </ul>
                 </div>
                 <div class="col-lg-4 header__search">
-                    <form action="">
+                    <form action="{% url 'home' %}" method="POST">
+                        {% csrf_token %}
                         <div class="header__search-container">
-                            <input type="text" name="" id="" placeholder="Search ...">
+                            <input type="text" name="search" id="" placeholder="Search ...">
                             <i class="moovie moovie-search"></i>
                         </div>
                     </form>
@@ -101,6 +102,10 @@
                     <div class="movie-detail__label">
                         <span class="label">Country :</span>
                         <span class="data">{{movie.countries}} </span>
+                    </div>
+                    <div class="movie-detail__label">
+                        <span class="label">Companies :</span>
+                        <span class="data">{{movie.companies}} </span>
                     </div>
                     <div class="movie-detail__label">
                         <span class="label">Budget :</span>

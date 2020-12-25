@@ -28,7 +28,11 @@ class MovieWithoutDBTestCase(TestCase):
         self.assertEqual(response.status_code, 500)
 
     def test_search_api_without_data(self):
-        response = self.client.get('/api/Search/', data={'search': 'toy'})
+        response = self.client.post('/api/Search/')
+        self.assertEqual(response.status_code, 500)
+
+    def test_search_api_with_data(self):
+        response = self.client.post('/api/Search/', data={'search': 'toy'})
         self.assertEqual(response.status_code, 500)
 
     def test_movie_details_api_without_data(self):
@@ -168,7 +172,7 @@ class MovieTestCase(TestCase):
 
     def test_search_api_with_loaded_data(self):
         data = {'search': 'to'}
-        response = self.client.get('/api/Search/', data=data)
+        response = self.client.post('/api/Search/', data=data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 4)
         self.assertEqual(response.json(),
@@ -178,7 +182,7 @@ class MovieTestCase(TestCase):
                           "writers_ids": []}
                          )
         data = {'search': 'somethingthatcannotbefound'}
-        response = self.client.get('/api/Search/', data=data)
+        response = self.client.post('/api/Search/', data=data)
         self.assertEqual(response.status_code, 404)
 
     def test_movie_details_api_with_loaded_data(self):

@@ -10,56 +10,71 @@ from random import randint
 from .models import *
 from .serializers import *
 import json
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home(request):
-    data = top_rated(request)
-    top_rated_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    top_rated_data = []
-    for movie in top_rated_data_raw['movie_ids'][:10]:
-        data = movie_details(request, str(movie))
-        top_rated_data.append(json.loads(data.rendered_content.decode('utf8')))
+    if request.method == 'GET':
+        data = top_rated(request)
+        top_rated_data_raw = json.loads(data.rendered_content.decode('utf8'))
+        top_rated_data = []
+        for movie in top_rated_data_raw['movie_ids'][:10]:
+            data = movie_details(request, str(movie))
+            top_rated_data.append(json.loads(
+                data.rendered_content.decode('utf8')))
 
-    data = release_date(request)
-    release_date_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    release_date_data = []
-    for movie in release_date_data_raw['movie_ids'][:5]:
-        data = movie_details(request, str(movie))
-        release_date_data.append(json.loads(data.rendered_content.decode('utf8')))
+        data = release_date(request)
+        release_date_data_raw = json.loads(
+            data.rendered_content.decode('utf8'))
+        release_date_data = []
+        for movie in release_date_data_raw['movie_ids'][:5]:
+            data = movie_details(request, str(movie))
+            release_date_data.append(json.loads(
+                data.rendered_content.decode('utf8')))
 
-    data = random(request)
-    random_data_raw = json.loads(data.rendered_content.decode('utf8'))
-    random_data = []
-    for movie in random_data_raw['movie_ids'][:5]:
-        data = movie_details(request, str(movie))
-        random_data.append(json.loads(data.rendered_content.decode('utf8')))
+        data = random(request)
+        random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+        random_data = []
+        for movie in random_data_raw['movie_ids'][:5]:
+            data = movie_details(request, str(movie))
+            random_data.append(json.loads(
+                data.rendered_content.decode('utf8')))
 
-    context = {'top_rated': top_rated_data, 'top_release': release_date_data, 'random': random_data}
-    return render(request, 'index.html', context=context)
+        context = {'top_rated': top_rated_data,
+                   'top_release': release_date_data, 'random': random_data}
+        return render(request, 'index.html', context=context)
+    elif request.method == 'POST':
+        data = search(request)
+        search_data = json.loads(data.content.decode('utf8'))
+        # print(search_data['movie_ids'])
+        context = {'search': search_data}
+        return render(request, 'search.html', context=context)
 
 
 def genres_page(request):
-    data = all_genres(request,False)
+    data = all_genres(request, False)
     genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
     movies_ordered_by_genre = []
-    
-    for movie in genres_data_raw:  
+
+    for movie in genres_data_raw:
         data = {'name': movie['name'], 'url': movie['url']}
-        movies_ordered_by_genre.append(data)   
+        movies_ordered_by_genre.append(data)
 
     return render(request, 'genres.html', {'genres_data': movies_ordered_by_genre})
 
 
-def movie_list(request,type):
-    if type=='rand':
+def movie_list(request, type):
+    if type == 'rand':
         data = random(request)
         random_data_raw = json.loads(data.rendered_content.decode('utf8'))
         random_data = []
         for movie in random_data_raw['movie_ids'][:40]:
             data = movie_details(request, str(movie))
-            random_data.append(json.loads(data.rendered_content.decode('utf8')))
-        
-        #in movie list we just can show 8 element in each page so we have to slice our dict
+            random_data.append(json.loads(
+                data.rendered_content.decode('utf8')))
+
+        # in movie list we just can show 8 element in each page so we have to slice our dict
         A = random_data[0:8]
         B = random_data[8:16]
         C = random_data[16:24]
@@ -68,32 +83,34 @@ def movie_list(request,type):
         return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D})
 
     else:
-        data = all_genres(request,type)
+        data = all_genres(request, type)
         genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
         movies = []
-        
+
         for id in genres_data_raw['movie_ids']:
             movie_data = movie_details(request, str(id))
-            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            movies.append(json.loads(
+                movie_data.rendered_content.decode('utf8')))
 
-        #in movie list we just can show 8 element in each page so we have to slice our dict
+        # in movie list we just can show 8 element in each page so we have to slice our dict
         A = movies[0:8]
         B = movies[8:16]
         C = movies[16:24]
         D = movies[24:32]
-        
+
         return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D})
 
+
 def movie_detail(request, movie_id):
-    
+
     movie_data = movie_details(request, str(movie_id))
     movie_detail = json.loads(movie_data.rendered_content.decode('utf8'))
-    
-    data = all_genres(request,movie_detail['genres'][0])
+
+    data = all_genres(request, movie_detail['genres'][0])
     genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
     movies = []
-    
-    #we will show related movies in "our suggestion" section. it seems smarter :D
+
+    # we will show related movies in "our suggestion" section. it seems smarter :D
     for id in genres_data_raw['movie_ids'][:10]:
         movie_data = movie_details(request, str(id))
         movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
@@ -131,7 +148,7 @@ def all_actors(request, actor_id):
         for actor in result:
             # reverse create full link to each actor
             actor['url'] = reverse('all_actors', args=[
-                                str(actor['actor_id'])], request=request)
+                str(actor['actor_id'])], request=request)
         return Response(result)
 
 
@@ -194,8 +211,7 @@ def movie_details(request, movie_id):
         movie_poster_url = "https://image.tmdb.org/t/p/original" + movie_info.poster
 
         for genre in movie_info.genres.split(','):
-                movie_genres.append(genre)
-
+            movie_genres.append(genre)
 
         for cast in casts:
             for castMovieId in cast.movie_ids.split(','):
@@ -290,12 +306,13 @@ def random(request):
     return Response(result)
 
 
-@api_view(['GET'])
+@csrf_exempt
+@require_POST
 def search(request):
     if not check_DB():
         return HttpResponseServerError('Database is not loaded !')
     we_found_something = True
-    name = request.GET['search']
+    name = request.POST['search']
     queryset_movies = Movie.objects.filter(title__contains=name).values('id')
     queryset_actors = Actor.objects.filter(
         name__contains=name).values('actor_id')
@@ -310,6 +327,6 @@ def search(request):
         data = {'movie_ids': queryset_movies, 'acotr_ids': queryset_actors,
                 'director_ids': queryset_director, 'writers_ids': queryset_writers}
         result = SearchSerializer(data).data
-        return Response(result)
+        return JsonResponse(result, encoder=JSONEncoder)
     else:
         raise Http404("we couldn't find what you're looking for")
