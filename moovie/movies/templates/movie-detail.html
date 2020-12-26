@@ -127,7 +127,7 @@
             <div class="row">
                 <div class="col-12 section-with-title ">
                     <div class="section-with-title__title">
-                        <span>Our Suggestion</span> for you
+                        <span>Our Suggestion</span> for you in <span>{{genre}}</span>
                     </div>
                     <div class="slider suggestion-slider__slider">
                         <div class="carousel" data-flickity='{  "wrapAround": true, "pageDots" : false,
@@ -140,7 +140,7 @@
                                             <a href="{% url 'movie_detail' movie_id=movie.id %}" class="cover-link"></a>
                                             <img class="movie-item__img" src="{{movie.poster}}" alt="">
                                             <div class="movie-item__overlay">
-                                                <a href="#" class="movie-item__title">{{movie.title}}</a>
+                                                <a href="{% url 'movie_detail' movie_id=movie.id %}" class="movie-item__title">{{movie.title}}</a>
                                                 <ul class="movie-item__genre-list">
                                                     <li class="movie-item__genre">
                                                         {% for genre in movie.genres %}

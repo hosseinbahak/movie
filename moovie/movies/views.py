@@ -105,8 +105,8 @@ def movie_detail(request, movie_id):
 
     movie_data = movie_details(request, str(movie_id))
     movie_detail = json.loads(movie_data.rendered_content.decode('utf8'))
-
-    data = all_genres(request, movie_detail['genres'][0])
+    sugges_genre = movie_detail['genres'][0]
+    data = all_genres(request, sugges_genre)
     genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
     movies = []
 
@@ -115,7 +115,7 @@ def movie_detail(request, movie_id):
         movie_data = movie_details(request, str(id))
         movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-    context = {'movie': movie_detail, 'related_movies': movies}
+    context = {'movie': movie_detail, 'related_movies': movies, 'genre':sugges_genre}
     return render(request, 'movie-detail.html', context=context)
 
 
