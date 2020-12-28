@@ -55,7 +55,7 @@ def home(request):
 
         for id in search_data['movie_ids']:
             movie_data = movie_details(request, str(id))
-            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            movies.append(json.loads(movie_data.content.decode('utf8')))
 
     
         print(movies)
@@ -247,7 +247,7 @@ def all_genres(request, which_genre):
             raise Http404('genre not found')
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def movie_details(request, movie_id):
     casts = Actor.objects.all()
     directors = Director.objects.all()
