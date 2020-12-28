@@ -41,7 +41,8 @@ def home(request):
             random_data.append(json.loads(
                 data.rendered_content.decode('utf8')))
 
-        context = {'top_rated': top_rated_data,'top_release': release_date_data, 'random': random_data}
+        context = {'top_rated': top_rated_data,
+                   'top_release': release_date_data, 'random': random_data}
         return render(request, 'index.html', context=context)
     elif request.method == 'POST':
         data = search(request)
@@ -55,9 +56,9 @@ def home(request):
 
         for id in search_data['movie_ids']:
             movie_data = movie_details(request, str(id['id']))
-            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            movies.append(json.loads(
+                movie_data.rendered_content.decode('utf8')))
 
-    
         Am = movies[0:8]
         Bm = movies[8:16]
         Cm = movies[16:24]
@@ -91,11 +92,9 @@ def home(request):
         # Dw = writers[24:32]
 
         return render(request, 'search.html', {'Am': Am, 'Bm': Bm, 'Cm': Cm, 'Dm': Dm})
-                                            #    'Aa': Aa, 'Ba': Ba, 'Ca': Ca, 'Da': Da,
-                                            #    'Ad': Ad, 'Bd': Bd, 'Cd': Cd, 'Dd': Dd,
-                                            #    'A': Aw, 'Bw': Bw, 'Cw': Cw, 'Dw': Dw})
-
-
+        #    'Aa': Aa, 'Ba': Ba, 'Ca': Ca, 'Da': Da,
+        #    'Ad': Ad, 'Bd': Bd, 'Cd': Cd, 'Dd': Dd,
+        #    'A': Aw, 'Bw': Bw, 'Cw': Cw, 'Dw': Dw})
 
         context = {'search': search_data}
         return render(request, 'search.html', context=context)
@@ -117,7 +116,7 @@ def movie_list(request, type):
     if type == 'rand':
         data = random(request)
         random_data_raw = json.loads(data.rendered_content.decode('utf8'))
-        sugges_genre = 'suggestion'  
+        sugges_genre = 'suggestion'
         random_data = []
         for movie in random_data_raw['movie_ids'][:40]:
             data = movie_details(request, str(movie))
@@ -130,17 +129,18 @@ def movie_list(request, type):
         C = random_data[16:24]
         D = random_data[24:32]
 
-        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D, 'genre':sugges_genre})
+        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D, 'genre': sugges_genre})
 
     else:
         data = all_genres(request, type)
         genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
-        sugges_genre = genres_data_raw['name']  
+        sugges_genre = genres_data_raw['name']
         movies = []
 
         for id in genres_data_raw['movie_ids']:
             movie_data = movie_details(request, str(id))
-            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            movies.append(json.loads(
+                movie_data.rendered_content.decode('utf8')))
 
         # in movie list we just can show 8 element in each page so we have to slice our dict
         A = movies[0:8]
@@ -148,7 +148,7 @@ def movie_list(request, type):
         C = movies[16:24]
         D = movies[24:32]
 
-        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D, 'genre':sugges_genre})
+        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D, 'genre': sugges_genre})
 
 
 def movie_detail(request, movie_id):
@@ -165,7 +165,8 @@ def movie_detail(request, movie_id):
         movie_data = movie_details(request, str(id))
         movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-    context = {'movie': movie_detail, 'related_movies': movies, 'genre':sugges_genre}
+    context = {'movie': movie_detail,
+               'related_movies': movies, 'genre': sugges_genre}
     return render(request, 'movie-detail.html', context=context)
 
 
@@ -176,7 +177,7 @@ def check_DB():
         return False
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def all_actors(request, actor_id):
     # returns only one Actor
     if actor_id:
@@ -199,6 +200,58 @@ def all_actors(request, actor_id):
             # reverse create full link to each actor
             actor['url'] = reverse('all_actors', args=[
                 str(actor['actor_id'])], request=request)
+        return Response(result)
+
+
+@api_view(['GET', 'POST'])
+def all_directors(request, director_id):
+    # returns only one Director
+    if director_id:
+        # if the director_id is valid
+        try:
+            data = Director.objects.get(director_id=director_id)
+            result = DirectorSerializer(data).data
+            return Response(result)
+        except Director.DoesNotExist:
+            raise Http404('actor not found')
+    # returns all the Directors
+    else:
+        # if data base is not loaded then return 500 Error
+        if not check_DB():
+            return HttpResponseServerError('Database is not loaded !')
+        data = Director.objects.all()
+        result = DirectorSerializer(data, many=True).data
+        # add url to each Actor
+        for director in result:
+            # reverse create full link to each director
+            director['url'] = reverse('all_directors', args=[
+                str(director['director_id'])], request=request)
+        return Response(result)
+
+
+@api_view(['GET', 'POST'])
+def all_writers(request, writer_id):
+    # returns only one Writer
+    if writer_id:
+        # if the writer_id is valid
+        try:
+            data = Writer.objects.get(writer_id=writer_id)
+            result = WriterSerializer(data).data
+            return Response(result)
+        except Writer.DoesNotExist:
+            raise Http404('actor not found')
+    # returns all the Writers
+    else:
+        # if data base is not loaded then return 500 Error
+        if not check_DB():
+            return HttpResponseServerError('Database is not loaded !')
+        data = Writer.objects.all()
+        result = WriterSerializer(data, many=True).data
+        # add url to each Actor
+        for writer in result:
+            # reverse create full link to each writer
+            writer['url'] = reverse('all_writers', args=[
+                str(writer['writer_id'])], request=request)
         return Response(result)
 
 
@@ -286,7 +339,7 @@ def movie_details(request, movie_id):
             'directors': directors_name,
             'budget': movie_info.budget,
             'genres': movie_genres,
-            'language': movie_info.language,
+            'language': movie_info.language.upper(),
             'overview': movie_info.overview,
             'companies': movie_info.companies,
             'countries': movie_info.countries,
@@ -374,7 +427,7 @@ def search(request):
     if queryset_movies.count() == 0 and queryset_actors.count() == 0 and queryset_writers.count() == 0 and queryset_director.count() == 0:
         we_found_something = False
     if we_found_something:
-        data = {'movie_ids': queryset_movies, 'acotor_ids': queryset_actors,
+        data = {'movie_ids': queryset_movies, 'actor_ids': queryset_actors,
                 'director_ids': queryset_director, 'writer_ids': queryset_writers}
         result = SearchSerializer(data).data
         return JsonResponse(result, encoder=JSONEncoder)

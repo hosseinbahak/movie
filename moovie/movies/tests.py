@@ -177,7 +177,7 @@ class MovieTestCase(TestCase):
         self.assertEqual(len(response.json()), 4)
         self.assertEqual(response.json(),
                          {"movie_ids": [{"id": 1}],
-                          "acotor_ids": [{"actor_id": 1}],
+                          "actor_ids": [{"actor_id": 1}],
                           "director_ids": [],
                           "writer_ids": []}
                          )

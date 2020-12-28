@@ -4,6 +4,8 @@ from . import views
 
 urlpatterns = [
     url(r'^api/Actors/(\d*)', views.all_actors, name='all_actors'),
+    url(r'^api/Directors/(\d*)', views.all_directors, name='all_directors'),
+    url(r'^api/Writers/(\d*)', views.all_writers, name='all_writers'),
     url(r'^api/Genres/(\w*)', views.all_genres, name='all_genres'),
     url(r'^api/Movie/(\d*)', views.movie_details, name='movie_detail'),
     url(r'^api/TopRated/', views.top_rated, name='top_rated'),

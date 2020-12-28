@@ -10,6 +10,20 @@ class ActorsSerializer(serializers.Serializer):
     movie_ids = serializers.CharField()
 
 
+class DirectorSerializer(serializers.Serializer):
+    director_id = serializers.IntegerField()
+    name = serializers.CharField(max_length=70)
+    gender = serializers.CharField(max_length=1)
+    movie_ids = serializers.CharField()
+
+
+class WriterSerializer(serializers.Serializer):
+    writer_id = serializers.IntegerField()
+    name = serializers.CharField(max_length=70)
+    gender = serializers.CharField(max_length=1)
+    movie_ids = serializers.CharField()
+
+
 class GenresSerializer(serializers.Serializer):
     name = serializers.CharField()
     movie_ids = serializers.ListField()
@@ -42,6 +56,6 @@ class MoviesSerializer(serializers.Serializer):
 
 class SearchSerializer(serializers.Serializer):
     movie_ids = serializers.ListField()
-    acotor_ids = serializers.ListField()
+    actor_ids = serializers.ListField()
     director_ids = serializers.ListField()
     writer_ids = serializers.ListField()
