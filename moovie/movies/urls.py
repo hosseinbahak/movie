@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^genre/(?P<type>[\w\s]+)/$', views.movie_list, name='movie_list'),
     url(r'^movie_id/(?P<movie_id>.+?)/$', views.movie_detail, name='movie_detail'),
     
-    url(r'', views.home, name='home'),
+    url(r'',  views.home, name='home'),
 ]

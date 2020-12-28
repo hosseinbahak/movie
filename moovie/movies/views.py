@@ -41,13 +41,63 @@ def home(request):
             random_data.append(json.loads(
                 data.rendered_content.decode('utf8')))
 
-        context = {'top_rated': top_rated_data,
-                   'top_release': release_date_data, 'random': random_data}
+        context = {'top_rated': top_rated_data,'top_release': release_date_data, 'random': random_data}
         return render(request, 'index.html', context=context)
     elif request.method == 'POST':
         data = search(request)
         search_data = json.loads(data.content.decode('utf8'))
-        # print(search_data['movie_ids'])
+        print(search_data['movie_ids'])
+
+        movies = []
+        actors = []
+        writers = []
+        directors = []
+
+        for id in search_data['movie_ids']:
+            movie_data = movie_details(request, str(id))
+            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
+
+    
+        print(movies)
+        Am = movies[0:8]
+        Bm = movies[8:16]
+        Cm = movies[16:24]
+        Dm = movies[24:32]
+
+        #for id in search_data['actor_ids']:
+        #    movie_data = movie_details(request, str(id))
+        #    actors.append(json.loads(movie_data.rendered_content.decode('utf8')))
+
+        #Aa = actors[0:8]
+        #Ba = actors[8:16]
+        #Ca = actors[16:24]
+        #Da = actors[24:32]
+
+        #for id in search_data['director_ids']:
+        #    movie_data = movie_details(request, str(id))
+        #    directors.append(json.loads(movie_data.rendered_content.decode('utf8')))
+
+        #Ad = directors[0:8]
+        #Bd = directors[8:16]
+        #Cd = directors[16:24]
+        #Dd = directors[24:32]
+
+        #for id in search_data['writer_ids']:
+        #    movie_data = movie_details(request, str(id))
+        #    writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
+
+        #Aw = writers[0:8]
+        #Bw = writers[8:16]
+        #Cw = writers[16:24]
+        #Dw = writers[24:32]
+
+        return render(request, 'search.html', {'Am': Am, 'Bm': Bm, 'Cm': Cm, 'Dm': Dm})
+        #                                        'Aa': Aa, 'Ba': Ba, 'Ca': Ca, 'Da': Da,
+        #                                        'Ad': Ad, 'Bd': Bd, 'Cd': Cd, 'Dd': Dd,
+        #                                        'A': Aw, 'Bw': Bw, 'Cw': Cw, 'Dw': Dw})
+
+
+
         context = {'search': search_data}
         return render(request, 'search.html', context=context)
 
@@ -68,6 +118,7 @@ def movie_list(request, type):
     if type == 'rand':
         data = random(request)
         random_data_raw = json.loads(data.rendered_content.decode('utf8'))
+        sugges_genre = 'suggestion'  
         random_data = []
         for movie in random_data_raw['movie_ids'][:40]:
             data = movie_details(request, str(movie))
@@ -80,17 +131,17 @@ def movie_list(request, type):
         C = random_data[16:24]
         D = random_data[24:32]
 
-        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D})
+        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D, 'genre':sugges_genre})
 
     else:
         data = all_genres(request, type)
         genres_data_raw = json.loads(data.rendered_content.decode('utf8'))
+        sugges_genre = genres_data_raw['name']  
         movies = []
 
         for id in genres_data_raw['movie_ids']:
             movie_data = movie_details(request, str(id))
-            movies.append(json.loads(
-                movie_data.rendered_content.decode('utf8')))
+            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
         # in movie list we just can show 8 element in each page so we have to slice our dict
         A = movies[0:8]
@@ -98,7 +149,7 @@ def movie_list(request, type):
         C = movies[16:24]
         D = movies[24:32]
 
-        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D})
+        return render(request, 'movie-list.html', {'A': A, 'B': B, 'C': C, 'D': D, 'genre':sugges_genre})
 
 
 def movie_detail(request, movie_id):

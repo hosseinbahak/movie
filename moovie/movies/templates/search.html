@@ -1,1 +1,329 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!--Flickity-->
+    <link rel="stylesheet" href="{% static 'css/flickity.css' %}">
+    <!--Main Style-->
+    <link rel="stylesheet" href="{% static 'sass/main.css' %}">
+</head>
 {{search}}
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 header__logo">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'img/Logo.png' %}" alt="MOOVIE">
+                    </a>
+                </div>
+                <div class="col-lg-6 header__menu">
+                    <ul>
+                        <li class="header__menu-item "><a href="{% url 'home' %}">Home</a></li>
+                        <li class="header__menu-item header__menu-item--active"><a href="{% url 'movie_list' type='rand' %}">Movies</a>
+                        </li>
+                        <li class="header__menu-item "><a href="{% url 'genres' %}">Genres</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 header__search">
+                    <form action="{% url 'home' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="header__search-container">
+                            <input type="text" name="search" id="" placeholder="Search ...">
+                            <i class="moovie moovie-search"></i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="section list-slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 section-with-title ">
+                    <div class="section-with-title__title">
+                        <span>search</span>  result
+                    </div>
+                    <div class="slider list-slider__slider">
+                            <div class="carousel" data-flickity='{"wrapAround": true, "pageDots" : false, "rightToLeft": false, "cellAlign": "left" ,  "contain": true , "imageLoaded" : true }'>    
+
+                                <div class="carousel-cell">
+                                    <div class="list-slider__row"> 
+                                    {%for a in Am %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {{a.casts|join:", "}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+
+                                    </div>
+                                </div>
+
+
+
+
+                                {%if Bm%}
+                                <div class="carousel-cell">
+
+                                    <div class="list-slider__row"> 
+                                        
+                                        {%for a in Bm %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {{a.casts|join:", "}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                        
+                                        
+                                    </div>
+
+
+                                </div>
+                                {%endif%}
+                                
+
+
+                                {%if C%}
+                                <div class="carousel-cell">
+                                    <div class="list-slider__row">
+                                        
+                                        {%for a in Cm %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {{a.casts|join:", "}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                        
+                                    </div>
+
+                                </div>
+                                {%endif%}
+
+                                {%if Dm%}
+                                <div class="carousel-cell">
+                                    
+                                    <div class="list-slider__row">
+                                        
+                                        {%for a in D %}
+                                        <div class="list-slider__col">
+                                            <div class="movie-item">
+                                                <div class="movie-item--link">
+                                                    <a href="{% url 'movie_detail' movie_id=a.id %}" class="cover-link"></a>
+                                                    <img class="movie-item__img" src="{{a.poster}}" alt="">
+                                                    <div class="movie-item__rate movie-item__rate--good">{{a.vote_average}}</div>
+                                                    <div class="movie-item__overlay">
+                                                        <a href="{% url 'movie_detail' movie_id=a.id %}" class="movie-item__title">{{a.title}}</a>
+                                                        <ul class="movie-item__genre-list">
+                                                            <li class="movie-item__genre">
+                                                                {% for genre in a.genres %}
+                                                                    <a href="{% url 'movie_list' type=genre %}">{{genre}}</a>
+                                                                {% endfor %}
+                                                            </li>
+                                                        </ul>
+                                                        
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Director :</span>
+                                                            {%for director in a.directors %}
+                                                                <span class="data"> {{director}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Writers :</span>
+                                                            {%for writer in a.writers %}
+                                                                <span class="data"> {{writer}} </span> 
+                                                            {%endfor%}
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Release Year :</span>
+                                                            <span class="data">{{a.release_date}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Country :</span>
+                                                            <span class="data">{{a.countries}} </span>
+                                                        </div>
+                                                        <div class="movie-item__label">
+                                                            <span class="label">Stars: </span>
+                                                                {{a.casts|join:", "}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                        
+                                    </div>
+
+                                </div>
+                                {%endif%}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-9 footer__about">
+                    <div class="footer__logo">
+                        <a href="#">
+                            <img src="{% static 'img/Logo.png' %}" alt="MOOVIE">
+                        </a>
+                    </div>
+                    <div class="footer__about-content">
+                        <span>&copy; 2020 MOOVIE</span>
+                        <span>Created by The Makers Team</span>
+                    </div>
+                </div>
+                <div class="col-3 footer__go-top">
+                    <button class="go-top" onclick="$('html, body').animate({scrollTop:0},'100');"><i
+                            class="moovie moovie-arrow-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!--JQuery-->
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<!--Flickity-->
+<script src="{% static 'js/flickity.pkgd.min.js' %}"></script>
+<!--bootstrap-->
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<!--my JS-->
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
