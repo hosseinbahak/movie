@@ -42,63 +42,53 @@ def home(request):
                 data.rendered_content.decode('utf8')))
 
         context = {'top_rated': top_rated_data,
-                   'top_release': release_date_data, 'random': random_data}
+                    'top_release': release_date_data, 'random': random_data}
         return render(request, 'index.html', context=context)
     elif request.method == 'POST':
         data = search(request)
         search_data = json.loads(data.content.decode('utf8'))
-        print(search_data)
-
+        
+        movie_data = []
         movies = []
         actors = []
         writers = []
         directors = []
 
-        for id in search_data['movie_ids']:
+        for id in search_data['movie_ids'][:10]:
             movie_data = movie_details(request, str(id['id']))
             movies.append(json.loads(
                 movie_data.rendered_content.decode('utf8')))
 
-        Am = movies[0:8]
-        Bm = movies[8:16]
-        Cm = movies[16:24]
-        Dm = movies[24:32]
+        
+        for id in search_data['actor_ids'][:10]:
+            movie_data = all_actors(request, str(id['actor_id']))
+            movie_data = json.loads(movie_data.rendered_content.decode('utf8'))
+            
+            for castMovieId in movie_data['movie_ids'].split(','):
+                movie_data = movie_details(request, str(castMovieId))
+                actors.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            
 
-        # for id in search_data['actor_ids']:
-        #    movie_data = movie_details(request, str(id['actor_id']))
-        #    actors.append(json.loads(movie_data.rendered_content.decode('utf8')))
+        for id in search_data['director_ids'][:10]:
+            movie_data = all_directors(request, str(id['director_id']))
+            movie_data = json.loads(movie_data.rendered_content.decode('utf8'))
+        
+            for directorMovieId in movie_data['movie_ids'].split(','):
+                movie_data = movie_details(request, str(directorMovieId))
+                directors.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            
 
-        # Aa = actors[0:8]
-        # Ba = actors[8:16]
-        # Ca = actors[16:24]
-        # Da = actors[24:32]
-
-        # for id in search_data['director_ids']:
-        #    movie_data = movie_details(request, str(id['director_id']))
-        #    directors.append(json.loads(movie_data.rendered_content.decode('utf8')))
-
-        # Ad = directors[0:8]
-        # Bd = directors[8:16]
-        # Cd = directors[16:24]
-        # Dd = directors[24:32]
-
-        # for id in search_data['writer_ids']:
-        #    movie_data = movie_details(request, str(id['writer_id']))
-        #    writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
-
-        # Aw = writers[0:8]
-        # Bw = writers[8:16]
-        # Cw = writers[16:24]
-        # Dw = writers[24:32]
-
-        return render(request, 'search.html', {'Am': Am, 'Bm': Bm, 'Cm': Cm, 'Dm': Dm})
-        #    'Aa': Aa, 'Ba': Ba, 'Ca': Ca, 'Da': Da,
-        #    'Ad': Ad, 'Bd': Bd, 'Cd': Cd, 'Dd': Dd,
-        #    'A': Aw, 'Bw': Bw, 'Cw': Cw, 'Dw': Dw})
-
-        context = {'search': search_data}
-        return render(request, 'search.html', context=context)
-
+        #for id in search_data['writer_ids'][:10]:
+            #movie_data = all_writers(request, str(id['writer_id']))
+            #movie_data = json.loads(movie_data.rendered_content.decode('utf8'))
+            #print(movie_data)
+            #for writerMovieId in movie_data['movie_ids'].split(','):
+            #    movie_data = movie_details(request, str(writerMovieId))
+            #    writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
+            
+        return render(request, 'search.html', {'movies': movies, 'actors': actors, 'directors': directors, 'writers': writers})
+    else:
+        raise Http404('no match found')
 
 def genres_page(request):
     data = all_genres(request, False)
