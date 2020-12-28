@@ -46,7 +46,7 @@ def home(request):
     elif request.method == 'POST':
         data = search(request)
         search_data = json.loads(data.content.decode('utf8'))
-        print(search_data['movie_ids'])
+        print(search_data)
 
         movies = []
         actors = []
@@ -54,47 +54,46 @@ def home(request):
         directors = []
 
         for id in search_data['movie_ids']:
-            movie_data = movie_details(request, str(id))
-            movies.append(json.loads(movie_data.content.decode('utf8')))
+            movie_data = movie_details(request, str(id['id']))
+            movies.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
     
-        print(movies)
         Am = movies[0:8]
         Bm = movies[8:16]
         Cm = movies[16:24]
         Dm = movies[24:32]
 
-        #for id in search_data['actor_ids']:
-        #    movie_data = movie_details(request, str(id))
+        # for id in search_data['actor_ids']:
+        #    movie_data = movie_details(request, str(id['actor_id']))
         #    actors.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-        #Aa = actors[0:8]
-        #Ba = actors[8:16]
-        #Ca = actors[16:24]
-        #Da = actors[24:32]
+        # Aa = actors[0:8]
+        # Ba = actors[8:16]
+        # Ca = actors[16:24]
+        # Da = actors[24:32]
 
-        #for id in search_data['director_ids']:
-        #    movie_data = movie_details(request, str(id))
+        # for id in search_data['director_ids']:
+        #    movie_data = movie_details(request, str(id['director_id']))
         #    directors.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-        #Ad = directors[0:8]
-        #Bd = directors[8:16]
-        #Cd = directors[16:24]
-        #Dd = directors[24:32]
+        # Ad = directors[0:8]
+        # Bd = directors[8:16]
+        # Cd = directors[16:24]
+        # Dd = directors[24:32]
 
-        #for id in search_data['writer_ids']:
-        #    movie_data = movie_details(request, str(id))
+        # for id in search_data['writer_ids']:
+        #    movie_data = movie_details(request, str(id['writer_id']))
         #    writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
 
-        #Aw = writers[0:8]
-        #Bw = writers[8:16]
-        #Cw = writers[16:24]
-        #Dw = writers[24:32]
+        # Aw = writers[0:8]
+        # Bw = writers[8:16]
+        # Cw = writers[16:24]
+        # Dw = writers[24:32]
 
         return render(request, 'search.html', {'Am': Am, 'Bm': Bm, 'Cm': Cm, 'Dm': Dm})
-        #                                        'Aa': Aa, 'Ba': Ba, 'Ca': Ca, 'Da': Da,
-        #                                        'Ad': Ad, 'Bd': Bd, 'Cd': Cd, 'Dd': Dd,
-        #                                        'A': Aw, 'Bw': Bw, 'Cw': Cw, 'Dw': Dw})
+                                            #    'Aa': Aa, 'Ba': Ba, 'Ca': Ca, 'Da': Da,
+                                            #    'Ad': Ad, 'Bd': Bd, 'Cd': Cd, 'Dd': Dd,
+                                            #    'A': Aw, 'Bw': Bw, 'Cw': Cw, 'Dw': Dw})
 
 
 
@@ -375,8 +374,8 @@ def search(request):
     if queryset_movies.count() == 0 and queryset_actors.count() == 0 and queryset_writers.count() == 0 and queryset_director.count() == 0:
         we_found_something = False
     if we_found_something:
-        data = {'movie_ids': queryset_movies, 'acotr_ids': queryset_actors,
-                'director_ids': queryset_director, 'writers_ids': queryset_writers}
+        data = {'movie_ids': queryset_movies, 'acotor_ids': queryset_actors,
+                'director_ids': queryset_director, 'writer_ids': queryset_writers}
         result = SearchSerializer(data).data
         return JsonResponse(result, encoder=JSONEncoder)
     else:
