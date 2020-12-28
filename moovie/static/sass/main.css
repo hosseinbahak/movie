@@ -804,6 +804,9 @@ a:hover {
   background-image: url("../img/movie-detail-background.png");
   color: rgba(255, 255, 255, 0.85);
   position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .movie-detail::before {
@@ -1043,3 +1046,10 @@ a:hover {
   }
 }
 /*# sourceMappingURL=main.css.map */
+
+.movie-detail__pic{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  }

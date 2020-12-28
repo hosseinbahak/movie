@@ -19,7 +19,7 @@ def home(request):
         data = top_rated(request)
         top_rated_data_raw = json.loads(data.rendered_content.decode('utf8'))
         top_rated_data = []
-        for movie in top_rated_data_raw['movie_ids'][:10]:
+        for movie in top_rated_data_raw['movie_ids'][:20]:
             data = movie_details(request, str(movie))
             top_rated_data.append(json.loads(
                 data.rendered_content.decode('utf8')))
