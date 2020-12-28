@@ -42,6 +42,6 @@ class MoviesSerializer(serializers.Serializer):
 
 class SearchSerializer(serializers.Serializer):
     movie_ids = serializers.ListField()
-    acotr_ids = serializers.ListField()
+    acotor_ids = serializers.ListField()
     director_ids = serializers.ListField()
-    writers_ids = serializers.ListField()
+    writer_ids = serializers.ListField()
