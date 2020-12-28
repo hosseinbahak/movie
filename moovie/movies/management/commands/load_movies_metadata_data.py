@@ -100,7 +100,7 @@ class Command(BaseCommand):
                 # import Director
                 if flag_one_director == False and crew['job'] == 'Director' :
                     try:
-                        director = Director.objects.get(actor_id=crew['id'])
+                        director = Director.objects.get(director_id=crew['id'])
                         director.movie_ids = director.movie_ids + ',' + row['id']
                     except:
                         director = Director()
@@ -114,7 +114,7 @@ class Command(BaseCommand):
                 # import Writer
                 elif flag_one_writer == False and crew['department'] == 'Writing' :
                     try:
-                        writer = Writer.objects.get(actor_id=crew['id'])
+                        writer = Writer.objects.get(writer_id=crew['id'])
                         writer.movie_ids = writer.movie_ids + ',' + row['id']
                     except:
                         writer = Writer()

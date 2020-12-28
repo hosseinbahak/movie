@@ -78,13 +78,12 @@ def home(request):
                 directors.append(json.loads(movie_data.rendered_content.decode('utf8')))
             
 
-        #for id in search_data['writer_ids'][:10]:
-            #movie_data = all_writers(request, str(id['writer_id']))
-            #movie_data = json.loads(movie_data.rendered_content.decode('utf8'))
-            #print(movie_data)
-            #for writerMovieId in movie_data['movie_ids'].split(','):
-            #    movie_data = movie_details(request, str(writerMovieId))
-            #    writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
+        for id in search_data['writer_ids'][:10]:
+            movie_data = all_writers(request, str(id['writer_id']))
+            movie_data = json.loads(movie_data.rendered_content.decode('utf8'))
+            for writerMovieId in movie_data['movie_ids'].split(','):
+               movie_data = movie_details(request, str(writerMovieId))
+               writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
             
         return render(request, 'search.html', {'movies': movies, 'actors': actors, 'directors': directors, 'writers': writers})
     else:

@@ -206,18 +206,18 @@ class MovieTestCase(TestCase):
                 "directors": [
                     "John Lasseter"
                 ],
-                "budget": 30000,
+                "budget": '30,000.0',
                 "genres": [
                     "Animation",
                     "Family"
                 ],
-                "language": "En",
+                "language": "EN",
                 "overview": "hi this is only for test",
                 "companies": "Pixar",
                 "countries": "USA",
                 "release_date": "1995-10-30",
-                "revenue": 3000000,
-                "runtime": 120,
+                "revenue": '3,000,000.0',
+                "runtime": 120.0,
                 "vote_average": 8.0,
                 "vote_count": 1000,
                 "poster": "https://image.tmdb.org/t/p/original/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"
