@@ -44,8 +44,8 @@ class Command(BaseCommand):
             companies_raw = row['production_companies']
             companies_list = eval(companies_raw)
             companies_name_list = list()
-            for companie in companies_list:
-                companies_name_list.append(companie['name'])
+            for company in companies_list:
+                companies_name_list.append(company['name'])
             movie.companies = ','.join(companies_name_list)
             # countries is a list of dictionaries
             countries_raw = row['production_countries']
@@ -63,6 +63,8 @@ class Command(BaseCommand):
                 # get the right picture for movie
                 api_req = requests.get("https://api.themoviedb.org/3/movie/" + 
                 str(row['id']) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
+                if api_req.json()['poster_path'] == None:
+                    raise ValueError
                 movie.poster = str(api_req.json()['poster_path'])
             except:
                 print('failed at loading poster path from: ' + "https://api.themoviedb.org/3/movie/" + 
