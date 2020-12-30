@@ -13,7 +13,7 @@ for row in DictReader(open('./movies_metadata.csv')):
     list_of_ids.append(row['id'])
 
 # number of lines that we want to add to our test dataset in credits
-lis = []
+lis = [0]
 c = 0
 for row in DictReader(open('./credits.csv')):
     c += 1

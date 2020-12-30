@@ -26,11 +26,14 @@ class Command(BaseCommand):
             print(ALREADY_LOADED_ERROR_MESSAGE)
             return
         print("Loading Movie data for Movies available in movies_metadata.csv")
+        i = 1
         for row in DictReader(open('./movies_metadata.csv')):
+            print(i)
+            i+=1
             movie = Movie()
             movie.id = row['id']
             movie.title = row['title']
-            movie.budget = row['budget']
+            movie.budget = 0 if row['budget'] == '' else row['budget']
             # genres is a list of dictionaries
             genres_raw = row['genres']
             genres_list = eval(genres_raw)
@@ -55,10 +58,10 @@ class Command(BaseCommand):
                 countries_name_list.append(country['name'])
             movie.countries = ','.join(countries_name_list)
             movie.release_date = row['release_date']
-            movie.revenue = row['revenue']
-            movie.runtime = row['runtime']
-            movie.vote_average = row['vote_average']
-            movie.vote_count = row['vote_count']
+            movie.revenue = 0 if row['revenue'] == '' else row['revenue']
+            movie.runtime = 0 if row['runtime'] == '' else row['runtime']
+            movie.vote_average = 0 if row['vote_average'] == '' else row['vote_average']
+            movie.vote_count = 0 if row['vote_count'] == '' else row['vote_count']
             try:
                 # get the right picture for movie
                 api_req = requests.get("https://api.themoviedb.org/3/movie/" + 
@@ -73,7 +76,10 @@ class Command(BaseCommand):
             movie.save()
         print("Loading Actor, Director, Writer data for Credits available in credits.csv")
         SEX_CHOICES = {1:'F', 2:'M', 0:''}
+        i = 1
         for row in DictReader(open('./credits.csv')):
+            print(i)
+            i+=1
             # import Actors
             actors_raw = row['cast']
             actors_list = eval(actors_raw)

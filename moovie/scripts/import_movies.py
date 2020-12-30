@@ -17,21 +17,32 @@ for row in DictReader(open('./movies_metadata.csv')):
     except:
         pass
 
+# vote counts
+votes = []
+for row in DictReader(open('./movies_metadata.csv')):
+    try:
+        votes.append(int(row['vote_count']))
+    except:
+        pass
+
+votes = sorted(votes)
 dates = sorted(dates)
-# print(dates[-300].isoformat(), dates[-1].isoformat())
+# print(votes[-300], votes[-1])
+# print(dates[-10000], dates[-1])
 
 # number of lines that we want to add to our test dataset
-l = []
+l = [0]
 c = 0
 for row in DictReader(open('./movies_metadata.csv')):
     c += 1
     try:
         # 300 last movies and if it is from iran
-        if dates[-300] <= datetime.strptime(str(row['release_date']), '%Y-%m-%d') or "Iran" in str(row['production_countries']):
+        if (dates[-10000] <= datetime.strptime(str(row['release_date']), '%Y-%m-%d') and votes[-300] <= int(row['vote_count'])) or "Iran" in str(row['production_countries']):
             l.append(c)
     except:
         pass
 
+# print(len(l))
 # print lines so that we use it in our test dataset
 i = 0
 c = 0
