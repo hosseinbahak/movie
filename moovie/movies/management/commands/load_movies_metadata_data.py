@@ -25,10 +25,10 @@ class Command(BaseCommand):
             print('Movie data already loaded...exiting.')
             print(ALREADY_LOADED_ERROR_MESSAGE)
             return
-        print("Loading Movie data for Movies available in movies_metadata.csv")
+        print("\nLoading Movie data for Movies available in movies_metadata.csv")
         i = 1
         for row in DictReader(open('./movies_metadata.csv')):
-            print(i)
+            print(i, end=', ')
             i+=1
             movie = Movie()
             movie.id = row['id']
@@ -74,11 +74,11 @@ class Command(BaseCommand):
                 str(row['id']) + "?api_key=" + str(os.getenv('API_KEY')) + "&language=en-US")
                 movie.poster = row['poster_path']
             movie.save()
-        print("Loading Actor, Director, Writer data for Credits available in credits.csv")
+        print("\nLoading Actor, Director, Writer data for Credits available in credits.csv")
         SEX_CHOICES = {1:'F', 2:'M', 0:''}
         i = 1
         for row in DictReader(open('./credits.csv')):
-            print(i)
+            print(i, end=', ')
             i+=1
             # import Actors
             actors_raw = row['cast']

@@ -5,29 +5,29 @@ this file grabs the movie ids from ./movies_metadata.csv file
 and then print the related credits lines in ./credits.csv file
 if you want small part of dataset you should first run ./import_movies.py file and then this file.
 """
-from csv import DictReader
+import csv
+from io import StringIO
 
 # list of ids in movies_metadata 
 list_of_ids = []
-for row in DictReader(open('./movies_metadata.csv')):
+for row in csv.DictReader(open('./movies_metadata.csv')):
     list_of_ids.append(row['id'])
 
 # number of lines that we want to add to our test dataset in credits
-lis = [0]
-c = 0
-for row in DictReader(open('./credits.csv')):
-    c += 1
-    if row['id'] in list_of_ids:
-        list_of_ids.remove(row['id'])
-        lis.append(c)
+output = StringIO(newline='\n')
+field_names = "cast,crew,id".split(',')
+with open('./credits.csv', 'r', newline='\n') as f:
+    writer = csv.DictWriter(output, fieldnames=field_names)
+    reader = csv.DictReader(f)
+    writer.writeheader()
+    for row in reader:
+        try:
+            if row['id'] in list_of_ids:
+                list_of_ids.remove(row['id'])
+                writer.writerow(row)
+        except:
+            pass
 
-# print lines so that we use it in our test dataset
-i = 0
-c = 0
-for line in open('./credits.csv', 'r'):
-    if len(lis) <= c:
-        break
-    if i == lis[c]:
-        print(line, end='')
-        c+=1
-    i+=1
+data = [line.strip() for line in output.getvalue().splitlines()]
+for line in data:
+    print(line)

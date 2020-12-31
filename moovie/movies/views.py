@@ -19,7 +19,7 @@ def home(request):
         data = top_rated(request)
         top_rated_data_raw = json.loads(data.rendered_content.decode('utf8'))
         top_rated_data = []
-        for movie in top_rated_data_raw['movie_ids'][:10]:
+        for movie in top_rated_data_raw['movie_ids'][:20]:
             data = movie_details(request, str(movie))
             top_rated_data.append(json.loads(
                 data.rendered_content.decode('utf8')))
@@ -28,7 +28,7 @@ def home(request):
         release_date_data_raw = json.loads(
             data.rendered_content.decode('utf8'))
         release_date_data = []
-        for movie in release_date_data_raw['movie_ids'][:5]:
+        for movie in release_date_data_raw['movie_ids'][:10]:
             data = movie_details(request, str(movie))
             release_date_data.append(json.loads(
                 data.rendered_content.decode('utf8')))
@@ -254,17 +254,19 @@ def all_genres(request, which_genre):
         movies = Movie.objects.all()
         data = []
         for movie in movies:
-            for genre in movie.genres.split(','):
-                for available_genre in data:
-                    # if we had the genre before just add the movie id
-                    if available_genre['name'] == genre:
-                        available_genre['movie_ids'].append(movie.id)
-                        break
-                else:
-                    # if we don't have that genre create a new one
-                    dic = {'name': genre, 'movie_ids': [movie.id], 'url': reverse(
-                        'all_genres', args=[genre], request=request)}
-                    data.append(dic)
+            if movie.genres != '':
+                for genre in movie.genres.split(','):
+                    genre_without_space = genre.replace(' ', '_')
+                    for available_genre in data:
+                        # if we had the genre before just add the movie id
+                        if available_genre['name'] == genre_without_space:
+                            available_genre['movie_ids'].append(movie.id)
+                            break
+                    else:
+                        # if we don't have that genre create a new one
+                        dic = {'name': genre_without_space, 'movie_ids': [movie.id], 'url': reverse(
+                            'all_genres', args=[genre_without_space], request=request)}
+                        data.append(dic)
         result = GenresSerializer(data, many=True).data
         return Response(result)
     else:
@@ -277,7 +279,8 @@ def all_genres(request, which_genre):
         # search for which_genre
         for movie in movies:
             for genre in movie.genres.split(','):
-                if genre == which_genre:
+                genre_without_space = genre.replace(' ', '_')
+                if genre_without_space == which_genre:
                     # if genre is valid then add movie_id to the list
                     data['movie_ids'].append(movie.id)
                     flag_which_genre = True
@@ -303,7 +306,8 @@ def movie_details(request, movie_id):
         movie_poster_url = "https://image.tmdb.org/t/p/original" + movie_info.poster
 
         for genre in movie_info.genres.split(','):
-            movie_genres.append(genre)
+            genre_without_space = genre.replace(' ', '_')
+            movie_genres.append(genre_without_space)
 
         for cast in casts:
             for castMovieId in cast.movie_ids.split(','):
