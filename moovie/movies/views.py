@@ -41,13 +41,14 @@ def home(request):
             random_data.append(json.loads(
                 data.rendered_content.decode('utf8')))
 
+        search_req = "Search ..."
         context = {'top_rated': top_rated_data,
                     'top_release': release_date_data, 'random': random_data}
         return render(request, 'index.html', context=context)
     elif request.method == 'POST':
         data = search(request)
+        search_req = request.POST['search']
         search_data = json.loads(data.content.decode('utf8'))
-        
         movie_data = []
         movies = []
         actors = []
@@ -85,7 +86,7 @@ def home(request):
                movie_data = movie_details(request, str(writerMovieId))
                writers.append(json.loads(movie_data.rendered_content.decode('utf8')))
             
-        return render(request, 'search.html', {'movies': movies, 'actors': actors, 'directors': directors, 'writers': writers})
+        return render(request, 'search.html', {'movies': movies, 'actors': actors, 'directors': directors, 'writers': writers, 'search_req':search_req})
     else:
         raise Http404('no match found')
 
@@ -304,10 +305,10 @@ def movie_details(request, movie_id):
     try:
         movie_info = Movie.objects.filter(id=movie_id).get()
         movie_poster_url = "https://image.tmdb.org/t/p/original" + movie_info.poster
-
-        for genre in movie_info.genres.split(','):
-            genre_without_space = genre.replace(' ', '_')
-            movie_genres.append(genre_without_space)
+        if movie_info.genres != '':
+            for genre in movie_info.genres.split(','):
+                genre_without_space = genre.replace(' ', '_')
+                movie_genres.append(genre_without_space)
 
         for cast in casts:
             for castMovieId in cast.movie_ids.split(','):

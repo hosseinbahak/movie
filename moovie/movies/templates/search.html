@@ -37,7 +37,7 @@
                     <form action="{% url 'home' %}" method="POST">
                         {% csrf_token %}
                         <div class="header__search-container">
-                            <input type="text" name="search" id="" placeholder="Search ...">
+                            <input type="text" name="search" id="" placeholder="{{search_req}}">
                             <i class="moovie moovie-search"></i>
                         </div>
                     </form>
