@@ -1,0 +1,120 @@
+Operations to perform:
+  Synchronize unmigrated apps: messages, rest_framework, staticfiles
+  Apply all migrations: admin, auth, contenttypes, movies, sessions
+Running pre-migrate handlers for application admin
+Running pre-migrate handlers for application auth
+Running pre-migrate handlers for application contenttypes
+Running pre-migrate handlers for application sessions
+Running pre-migrate handlers for application movies
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK (0.003s)
+  Applying auth.0001_initial... OK (0.010s)
+  Applying admin.0001_initial... OK (0.006s)
+  Applying admin.0002_logentry_remove_auto_add... OK (0.007s)
+  Applying admin.0003_logentry_add_action_flag_choices... OK (0.006s)
+  Applying contenttypes.0002_remove_content_type_name... OK (0.011s)
+  Applying auth.0002_alter_permission_name_max_length... OK (0.006s)
+  Applying auth.0003_alter_user_email_max_length... OK (0.006s)
+  Applying auth.0004_alter_user_username_opts... OK (0.006s)
+  Applying auth.0005_alter_user_last_login_null... OK (0.005s)
+  Applying auth.0006_require_contenttypes_0002... OK (0.000s)
+  Applying auth.0007_alter_validators_add_error_messages... OK (0.005s)
+  Applying auth.0008_alter_user_username_max_length... OK (0.005s)
+  Applying auth.0009_alter_user_last_name_max_length... OK (0.005s)
+  Applying auth.0010_alter_group_name_max_length... OK (0.005s)
+  Applying auth.0011_update_proxy_permissions... OK (0.004s)
+  Applying auth.0012_alter_user_first_name_max_length... OK (0.006s)
+  Applying movies.0001_initial... OK (0.004s)
+  Applying movies.0002_auto_20201203_2122... OK (0.003s)
+  Applying movies.0003_auto_20201203_2127... OK (0.003s)
+  Applying movies.0004_auto_20201207_1933... OK (0.007s)
+  Applying movies.0005_auto_20201222_2019... OK (0.003s)
+  Applying sessions.0001_initial... OK (0.001s)
+Running post-migrate handlers for application admin
+Adding content type 'admin | logentry'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Running post-migrate handlers for application auth
+Adding content type 'auth | permission'
+Adding content type 'auth | group'
+Adding content type 'auth | user'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Running post-migrate handlers for application contenttypes
+Adding content type 'contenttypes | contenttype'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Running post-migrate handlers for application sessions
+Adding content type 'sessions | session'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Running post-migrate handlers for application movies
+Adding content type 'movies | actor'
+Adding content type 'movies | director'
+Adding content type 'movies | movie'
+Adding content type 'movies | writer'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+Adding permission 'Permission object (None)'
+System check identified no issues (0 silenced).
+
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_all_actors_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_all_actors_api_with_one_actor_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_all_genres_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_all_genres_api_with_one_genre_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_movie_details_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_random_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_release_date_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_search_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_top_rated_api_with_loaded_data (movies.tests.MovieTestCase) ... ok
+test_all_actors_api_with_one_actor_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_all_actors_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_all_genres_api_with_one_genre_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_all_genres_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_movie_details_api_with_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_movie_details_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_random_api_with_num_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_random_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_release_date_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_search_api_with_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_search_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+test_top_rated_api_without_data (movies.tests.MovieWithoutDBTestCase) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.087s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

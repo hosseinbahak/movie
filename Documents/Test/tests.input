@@ -1,0 +1,35 @@
+self.actor = Actor.objects.create(
+    actor_id=1,
+    name='Tom',
+    gender='M',
+    movie_ids='1',
+    pic='/pQFoyx7rp09CJTAb932F2g8Nlho.jpg'
+)
+self.movie = Movie.objects.create(
+    id=1,
+    title='toy story',
+    budget=30000,
+    genres='Animation,Family',
+    language='En',
+    overview='hi this is only for test',
+    companies='Pixar',
+    countries='USA',
+    release_date='1995-10-30',
+    revenue=3000000,
+    runtime=120,
+    vote_average=8.0,
+    vote_count=1000,
+    poster='/rhIRbceoE9lR4veEXuwCC2wARtG.jpg'
+)
+self.director = Director.objects.create(
+    name='John Lasseter',
+    gender='M',
+    movie_ids='1',
+    director_id=1
+)
+self.writer = Writer.objects.create(
+    name='Joss Whedon',
+    gender='M',
+    movie_ids='1',
+    writer_id=1
+) 
