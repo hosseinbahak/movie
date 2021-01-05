@@ -5,6 +5,8 @@ so you have to save these line in a new file and load your database with new csv
 first you need to run this file for movies and then the ./import_credits.py file
 this file print 300 last movies or movies from Iran
 you can change this file if you like to print your desired output
+you can run `python ./import_movies.py > movies_metadata_new.csv` and then change 
+the new file with the original file
 """
 import csv
 from datetime import datetime

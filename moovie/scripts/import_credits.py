@@ -4,6 +4,9 @@
 this file grabs the movie ids from ./movies_metadata.csv file 
 and then print the related credits lines in ./credits.csv file
 if you want small part of dataset you should first run ./import_movies.py file and then this file.
+first make sure that "./movies_metadata_new.csv" file you create with "import_movies.py" is renamed to "movies_metadata.csv"
+so you can run `python ./import_credits.py > credits_new.csv` and then change 
+the new file with the original file 
 """
 import csv
 from io import StringIO
