@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/static/v1?label=Frontend&message=HTML/CSS/SASS&color=success">
   <img src="https://img.shields.io/static/v1?label=Database&message=SQLite&color=important">
 </p>
+<img src="https://user-images.githubusercontent.com/34401089/128033091-3654d842-27e7-4f5f-a8f5-1a8119b21d38.png">
 
 The Moovie was developed as a project for Software Eng class.
 
